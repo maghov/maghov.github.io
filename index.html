@@ -4,17 +4,22 @@
 <html>
   <head>
     <title>Stopwatch</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+      /* CSS for the stopwatch display */
+      #stopwatch-display {
+        font-size: 3rem;
+        font-weight: bold;
+        text-align: center;
+        margin: 2rem 0;
+      }
+    </style>
   </head>
   <body>
-    <div class="stopwatch">
-      <h1 class="stopwatch-heading">00:00:00</h1>
-      <button class="stopwatch-btn start-btn" onclick="startStopwatch()">Start</button>
-      <button class="stopwatch-btn pause-btn" onclick="pauseStopwatch()">Pause</button>
-      <button class="stopwatch-btn reset-btn" onclick="resetStopwatch()">Reset</button>
-    </div>
-    
-    <script src="script.js"></script>
+    <h1>Stopwatch</h1>
+    <div id="stopwatch-display">00:00:00</div>
+    <button id="start-button" onclick="startStopwatch()">Start</button>
+    <button id="stop-button" onclick="stopStopwatch()">Stop</button>
+    <button id="reset-button" onclick="resetStopwatch()">Reset</button>
   </body>
 </html>
 
