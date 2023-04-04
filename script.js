@@ -3,66 +3,6 @@
         alert("Hello, world!");
       }
   
-
-
-
-let startTime;
-      let elapsedTime = 0;
-      let timerInterval;
-      const display = document.getElementById("stopwatch-display");
-
-      function startStopwatch() {
-        startTime = Date.now() - elapsedTime;
-        timerInterval = setInterval(updateStopwatch, 10);
-      }
-
-      function stopStopwatch() {
-        clearInterval(timerInterval);
-        elapsedTime = Date.now() - startTime;
-      }
-
-      function resetStopwatch() {
-        clearInterval(timerInterval);
-        elapsedTime = 0;
-        display.innerHTML = "00:00:00";
-      }
-
-      function updateStopwatch() {
-        const elapsedMilliseconds = Date.now() - startTime;
-        const hours = Math.floor(elapsedMilliseconds / 3600000);
-        const minutes = Math.floor((elapsedMilliseconds % 3600000) / 60000);
-        const seconds = Math.floor((elapsedMilliseconds % 60000) / 1000);
-        const milliseconds = Math.floor((elapsedMilliseconds % 1000) / 10);
-
-        const hoursStr = hours.toString().padStart(2, "0");
-        const minutesStr = minutes.toString().padStart(2, "0");
-        const secondsStr = seconds.toString().padStart(2, "0");
-        const millisecondsStr = milliseconds.toString().padStart(2, "0");
-
-        display.innerHTML = `${hoursStr}:${minutesStr}:${secondsStr}.${millisecondsStr}`;
-      }
-      
-        let timer;
-    let resultNumber = 0;
-    const resultTable = document.getElementById("result-table-body");
-    const addedDates = [];
-
-    function startTimer() {
-      // Check if input date is provided
-      if (!document.getElementById("input-date").value) {
-        alert("Please provide a valid input date!");
-        return;
-      }
-
-      // Get the input date from the text field and convert to ISO 8601 format
-      const inputDate = new Date(document.getElementById("input-date").valueAsNumber).toISOString();
-
-      // Check if the date has already been added
-      if (addedDates.includes(inputDate)) {
-        alert("This date has already been added to the table!");
-        return;
-      }
-
       // Calculate the time difference
       const startDate = new Date(inputDate);
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
