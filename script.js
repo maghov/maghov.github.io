@@ -1,4 +1,12 @@
- let startTime;
+ 
+      function showAlert() {
+        alert("Hello, world!");
+      }
+  
+
+
+
+let startTime;
       let elapsedTime = 0;
       let timerInterval;
       const display = document.getElementById("stopwatch-display");
