@@ -1,67 +1,92 @@
-body {
-  background-color: #FBF7F4;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  color: #6C9A8B;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-h1 {
-  color: #E8998D;
+body {
+    background-color: #FBF7F4;
+    color: #6C9A8B;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+header {
+    background-color: #E8998D;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    color: #FBF7F4;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+main {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+form input[type="date"],
+form input[type="text"] {
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons button {
+    background-color: #eed2cc;
+    border: none;
+    border-radius: 5px;
+    color: #6C9A8B;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.buttons button:hover {
+    background-color: #6C9A8B;
+    color: #FBF7F4;
 }
 
 table {
-  border-collapse: collapse;
-  width: 100%;
-  margin-bottom: 20px;
+    border-collapse: collapse;
+    margin-top: 20px;
+    width: 100%;
 }
 
-table th, table td {
-  padding: 8px;
-  text-align: left;
-  border: 1px solid #eed2cc;
+table th,
+table td {
+    border: 1px solid #6C9A8B;
+    padding: 10px;
+    text-align: left;
 }
 
 table th {
-  background-color: #eed2cc;
-  font-weight: bold;
-  color: #6C9A8B;
+    background-color: #eed2cc;
 }
 
+table th:first-child,
 table td:first-child {
-  font-weight: bold;
-}
-
-button {
-  background-color: #E8998D;
-  border: none;
-  color: #FBF7F4;
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
-button:hover {
-  background-color: #6C9A8B;
-}
-
-input[type="date"], input[type="text"] {
-  padding: 8px;
-  border: 1px solid #eed2cc;
-  width: 100%;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-}
-
-label {
-  display: inline-block;
-  margin-bottom: 5px;
-  color: #6C9A8B;
-  font-weight: bold;
-}
-
-.alert {
-  background-color: #eed2cc;
-  padding: 10px;
-  margin-bottom: 10px;
+    text-align: center;
+    width: 50px
 }
