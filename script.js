@@ -33,4 +33,4 @@
 
       // Stop the timer
       clearInterval(timer);
-    }
+    
