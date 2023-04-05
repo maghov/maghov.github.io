@@ -63,4 +63,5 @@
 function clearTable() {
   const resultTable = document.getElementById("result-table-body");
   resultTable.innerHTML = "";
+  resultNumber = 0;
 }
