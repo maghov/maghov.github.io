@@ -2,57 +2,65 @@
 
 <link rel="stylesheet" type="text/css" href="style.css">
 
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stopwatch</title>
+    <style>
+      /* CSS for the stopwatch display */
+      #stopwatch-display {
+        font-size: 3rem;
+        font-weight: bold;
+        text-align: center;
+        margin: 2rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Stopwatch</h1>
+    <div id="stopwatch-display">00:00:00</div>
+    <button id="start-button" onclick="startStopwatch()">Start</button>
+    <button id="stop-button" onclick="stopStopwatch()">Stop</button>
+    <button id="reset-button" onclick="resetStopwatch()">Reset</button>
+  </body>
+</html>
+
+
+
+
+
 
 <html>
-  <script src="script.js"></script>
   <head>
-    <title>Button Examplev2</title>
+    <title>Days and Hours Counter</title>
   </head>
   <body>
-    <button onclick="showAlert()">Click Me1212!</button>
-  </body>
-
-  <head>
-    <title>Stopwatch and Days Counter</title>
-  </head>
-  <body>
-    <div style="display: flex; justify-content: space-between;">
-      <div>
-        <h1>Days Counter</h1>
-        <table>
-          <tr>
-            <td><label for="input-date">Input Date:</label></td>
-            <td><input type="date" id="input-date" required></td>
-          </tr>
-          <tr>
-            <td><label for="short-description">Short Description:</label></td>
-            <td><input type="text" id="short-description"></td>
-          </tr>
-          <tr>
-            <td><button onclick="startTimer()">Start</button></td>
-          </tr>
-        </table>
-        <br>
-        <table id="result-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Input Date</th>
-              <th>Days Since</th>
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody id="result-table-body">
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <h1>Stopwatch</h1>
-        <div id="stopwatch-display">00:00:00</div>
-        <button id="start-button" onclick="startStopwatch()">Start</button>
-        <button id="stop-button" onclick="stopStopwatch()">Stop</button>
-        <button id="reset-button" onclick="resetStopwatch()">Reset</button>
-      </div>
-    </div>
+    <h1>Days and Hours Counter</h1>
+    <table>
+      <tr>
+        <td><label for="input-date">Input Date:</label></td>
+        <td><input type="date" id="input-date" required></td>
+      </tr>
+      <tr>
+        <td><label for="short-description">Short Description:</label></td>
+        <td><input type="text" id="short-description"></td>
+      </tr>
+      <tr>
+        <td><button onclick="startTimer()">Start</button></td>
+      </tr>
+    </table>
+    <br>
+    <table id="result-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Input Date</th>
+          <th>Days Since</th>
+          <th>Name</th>
+        </tr>
+      </thead>
+      <tbody id="result-table-body">
+      </tbody>
+    </table>
   </body>
 </html>
