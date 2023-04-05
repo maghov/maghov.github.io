@@ -1,6 +1,7 @@
  
       function showAlert() {
-        alert("Hello, world!");
+        const resultTable = document.getElementById("result-table-body");
+  resultTable.innerHTML = "";
       }
   
 
