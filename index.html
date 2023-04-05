@@ -2,10 +2,6 @@
 
 <link rel="stylesheet" type="text/css" href="style.css">
 
-
-<h1>Click the Button</h1>
- <button onclick="showAlert()">Click Mev2</button>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,14 +16,13 @@
 
     <main>
         <form>
+            <label for="name">Name:</label>
+            <input type="text" id="name">
+         
             <label for="input-date">Input Date:</label>
             <input type="date" id="input-date" required>
-
-            <label for="short-description">Short Description:</label>
-            <input type="text" id="short-description">
-
             <div class="buttons">
-                <button onclick="startTimer()">Start</button>
+                <button onclick="addItem()">Add</button>
                 <button onclick="clearTable()">Clear table</button>
             </div>
         </form>
@@ -36,9 +31,10 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Name</th>
                     <th>Input Date</th>
                     <th>Days Since</th>
-                    <th>Name</th>
+          
                 </tr>
             </thead>
             <tbody id="result-table-body">
