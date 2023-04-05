@@ -9,6 +9,14 @@
       const resultTable = document.getElementById("result-table-body");
       const addedDates = [];
       
+
+function clearTable() {
+  const resultTable = document.getElementById("result-table-body");
+  resultTable.innerHTML = "";
+}
+
+
+
       function startTimer() {
         // Check if input date is provided
         if (!document.getElementById("input-date").value) {
