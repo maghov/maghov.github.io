@@ -1,6 +1,13 @@
 initializeFirebase();
+
+
+
 function initializeFirebase(){
 console.log('initFirebase');
+ 
+import firebase from "firebase/app";
+import "firebase/database";
+ 
 // var  Firebase
  const firebaseConfig = {
     apiKey: "AIzaSyBIy7mb_wS05I_0ICLMSX1P5avFim7yXsA",
@@ -44,7 +51,7 @@ function addItem() {
   console.log('addItem function is running');
 
  if (!document.getElementById("input-date").value) {
-   alert("Please provide a valid input date!");
+   alert("Please provide a valid input date!!!!");
    return;
  }
 
