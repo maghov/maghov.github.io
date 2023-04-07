@@ -3,7 +3,7 @@
 //import { getDatabase } from "firebase/database";
 
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
- import { getDatabase, doc, getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+ import { getDatabase } from "firebase/database";
 
 console.log('index js');
 
