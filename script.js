@@ -1,3 +1,37 @@
+initializeFirebase();
+function initializeFirebase(){
+
+// var  Firebase
+ const firebaseConfig = {
+    apiKey: "AIzaSyBIy7mb_wS05I_0ICLMSX1P5avFim7yXsA",
+    authDomain: "chat-gtp-b0e1d.firebaseapp.com",
+    projectId: "chat-gtp-b0e1d",
+    storageBucket: "chat-gtp-b0e1d.appspot.com",
+    messagingSenderId: "617084173940",
+    appId: "1:617084173940:web:e66612d6dae0337d4e9b21",
+    measurementId: "G-TFJ234R5B9"
+  };
+firebase.initializeApp(firebaseConfig);
+
+// Get a reference to the Firebase Realtime Database
+var database = firebase.database();
+
+// Add data to a Firebase Realtime Database location
+database.ref('users').push({
+    name: "John Doe",
+    age: 25,
+    email: "johndoe@example.com"
+}, function(error) {
+    if (error) {
+        console.log("Error adding data: ", error);
+    } else {
+        console.log("Data added successfully!");
+    }
+});
+
+
+}
+
 
 
 let timer;
@@ -71,7 +105,7 @@ function saveToFirebase(email) {
         email: email
     };
  console.log('this function is running');
-    app.database().ref('subscription-entries').push().set(emailObject)
+    firebase.database().ref('subscription-entries').push().set(emailObject)
         .then(function(snapshot) {
             success(); // some success method
         }, function(error) {
