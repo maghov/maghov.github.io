@@ -57,5 +57,24 @@ function addItem() {
 function clearTable() {
  const resultTable = document.getElementById("result-table-body");
  resultTable.innerHTML = "";
- resultNumber = 0;
+ resultNumber = 1;
+ var email = 'test1234';
+saveToFirebase(email);
 }
+
+
+
+function saveToFirebase(email) {
+    var emailObject = {
+        email: email
+    };
+
+    firebase.database().ref('subscription-entries').push().set(emailObject)
+        .then(function(snapshot) {
+            success(); // some success method
+        }, function(error) {
+            console.log('error' + error);
+            error(); // some error method
+        });
+}
+
