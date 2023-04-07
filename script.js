@@ -1,7 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-
-
 initializeFirebase();
 
 
@@ -20,9 +18,11 @@ console.log('initFirebasev112');
     measurementId: "G-TFJ234R5B9",
     databaseURL:"https://chat-gtp-b0e1d-default-rtdb.europe-west1.firebasedatabase.app/"
   };
-  const app = initializeApp(firebaseConfig);
+  
+const app = initializeApp(firebaseConfig);
 
-// Get a reference to the Firebase Realtime Database
+
+// Initialize Realtime Database and get a reference to the service
 const database = getDatabase(app);
 
 
