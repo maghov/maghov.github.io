@@ -1,3 +1,7 @@
+import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
+
+
 initializeFirebase();
 
 
@@ -16,10 +20,11 @@ console.log('initFirebasev112');
     measurementId: "G-TFJ234R5B9",
     databaseURL:"https://chat-gtp-b0e1d-default-rtdb.europe-west1.firebasedatabase.app/"
   };
-firebase.initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
 
 // Get a reference to the Firebase Realtime Database
-var database = firebase.database();
+const database = getDatabase(app);
+
 
 // Add data to a Firebase Realtime Database location
 database.ref('users').push({
