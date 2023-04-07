@@ -70,7 +70,7 @@ function saveToFirebase(email) {
     var emailObject = {
         email: email
     };
- console.log('this function is running'):
+ console.log('this function is running');
     firebase.database().ref('subscription-entries').push().set(emailObject)
         .then(function(snapshot) {
             success(); // some success method
