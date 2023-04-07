@@ -3,7 +3,7 @@ initializeFirebase();
 
 
 function initializeFirebase(){
-console.log('initFirebase');
+console.log('initFirebasev2');
  
 import firebase from "firebase/app";
 import "firebase/database";
