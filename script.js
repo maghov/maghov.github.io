@@ -58,7 +58,7 @@ function clearTable() {
  const resultTable = document.getElementById("result-table-body");
  resultTable.innerHTML = "";
  resultNumber = 1;
- var email = 'test1234';
+ const email = 'test1234';
 saveToFirebase(email);
 }
 
@@ -68,7 +68,7 @@ function saveToFirebase(email) {
     var emailObject = {
         email: email
     };
-
+ console.log('this function is running'):
     firebase.database().ref('subscription-entries').push().set(emailObject)
         .then(function(snapshot) {
             success(); // some success method
