@@ -5,7 +5,6 @@ initializeFirebase();
 function initializeFirebase(){
 console.log('initFirebasev2');
  
-import firebase from "firebase/app";
 import "firebase/database";
  
 // var  Firebase
@@ -16,7 +15,8 @@ import "firebase/database";
     storageBucket: "chat-gtp-b0e1d.appspot.com",
     messagingSenderId: "617084173940",
     appId: "1:617084173940:web:e66612d6dae0337d4e9b21",
-    measurementId: "G-TFJ234R5B9"
+    measurementId: "G-TFJ234R5B9",
+    databaseURL:"https://chat-gtp-b0e1d-default-rtdb.europe-west1.firebasedatabase.app/"
   };
 firebase.initializeApp(firebaseConfig);
 
