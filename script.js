@@ -3,7 +3,7 @@ initializeFirebase();
 
 
 function initializeFirebase(){
-console.log('initFirebasev2');
+console.log('initFirebasev112');
  
 import "firebase/database";
  
