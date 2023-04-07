@@ -7,6 +7,8 @@ const addedDates = [];
 
 function addItem() {
  // Check if input date is provided
+  console.log('addItem function is running'):
+
  if (!document.getElementById("input-date").value) {
    alert("Please provide a valid input date!");
    return;
