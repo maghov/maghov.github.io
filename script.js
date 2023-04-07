@@ -4,9 +4,7 @@ initializeFirebase();
 
 function initializeFirebase(){
 console.log('initFirebasev112');
- 
-import "firebase/database";
- 
+  
 // var  Firebase
  const firebaseConfig = {
     apiKey: "AIzaSyBIy7mb_wS05I_0ICLMSX1P5avFim7yXsA",
