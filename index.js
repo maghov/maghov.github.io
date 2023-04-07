@@ -2,7 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 
-
+console.log('index js');
 
  const firebaseConfig = {
     apiKey: "AIzaSyBIy7mb_wS05I_0ICLMSX1P5avFim7yXsA",
