@@ -3,7 +3,7 @@
 //import { getDatabase } from "firebase/database";
 
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
- import { getFirestore, doc, getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+ import { getDatabase, doc, getDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 
 console.log('index js');
 
@@ -19,6 +19,7 @@ console.log('index js');
   };
   
 const app = initializeApp(firebaseConfig);
+
 
 
 // Initialize Realtime Database and get a reference to the service
