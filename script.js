@@ -71,7 +71,7 @@ function saveToFirebase(email) {
         email: email
     };
  console.log('this function is running');
-    firebase.database().ref('subscription-entries').push().set(emailObject)
+    app.database().ref('subscription-entries').push().set(emailObject)
         .then(function(snapshot) {
             success(); // some success method
         }, function(error) {
