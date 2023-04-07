@@ -1,6 +1,6 @@
 initializeFirebase();
 function initializeFirebase(){
-
+console.log('initFirebase');
 // var  Firebase
  const firebaseConfig = {
     apiKey: "AIzaSyBIy7mb_wS05I_0ICLMSX1P5avFim7yXsA",
