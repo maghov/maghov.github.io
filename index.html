@@ -19,7 +19,7 @@
         <form>
             <label for="name">Name:</label>
             <input type="text" id="name">
-         
+            <input type="text" id="number">
             <label for="inputDate">Input Date:</label>
             <input type="date" id="inputDate" required>
             <div class="buttons">
@@ -77,12 +77,14 @@
 
 
         var namebox = document.getElementById("name")
+        var numberbox = document.getElementById("number")
         var datebox = document.getElementById("inputDate")
         var insBtn = document.getElementById("addBtn")
 
         function InsertDate(){
             set(ref(db, "TheStudents/"+  namebox.value),{
             NameofStd: namebox.value, 
+            NumberofStd: namebox.numberbox, 
             Date: datebox.value,
         })
 .then(() => {
