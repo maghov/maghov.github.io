@@ -7,20 +7,6 @@ const addedDates = [];
 console.log('scrip.js is running')
 
 
-function testFirebase(){
-  console.log('testFirebase is running')
-  writeUserData('test1','test2','test3', 'test4');
-  function writeUserData(userId, name, email, imageUrl) {
-    const db = getDatabase();
-    set(ref(db, 'users/' + userId), {
-      username: name,
-      email: email,
-      profile_picture : imageUrl
-    });
-  }
-}
-
-
 
 function addItem() {
  // Check if input date is provided
