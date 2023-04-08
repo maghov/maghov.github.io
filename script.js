@@ -1,9 +1,27 @@
+import { getDatabase, ref, set } from "firebase/database";
+
+
 let timer;
 let resultNumber = 0;
 const resultTable = document.getElementById("result-table-body");
 const addedDates = [];
 
 console.log('scrip.js is running')
+
+
+function testFirebase(){
+
+  function writeUserData(userId, name, email, imageUrl) {
+    const db = getDatabase();
+    set(ref(db, 'users/' + userId), {
+      username: name,
+      email: email,
+      profile_picture : imageUrl
+    });
+  }
+}
+
+
 
 function addItem() {
  // Check if input date is provided
@@ -70,7 +88,7 @@ function saveToFirebase(email) {
     var emailObject = {
         email: email
     };
- console.log('this function is running');
+ console.log('thsaveToFirebaseis function is running');
     firebase.database().ref('subscription-entries').push().set(emailObject)
         .then(function(snapshot) {
             success(); // some success method
