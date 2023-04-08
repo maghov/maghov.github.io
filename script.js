@@ -37,9 +37,9 @@ function addItem() {
  // Add the result to the table
  const newRow = resultTable.insertRow(0);
  const numberCell = newRow.insertCell(0);
+ const descCell = newRow.insertCell(3);
  const dateCell = newRow.insertCell(1);
  const daysCell = newRow.insertCell(2);
- const descCell = newRow.insertCell(3);
  numberCell.innerHTML = ++resultNumber;
  descCell.innerHTML = name;
  dateCell.innerHTML = dateString;
