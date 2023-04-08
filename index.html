@@ -70,10 +70,10 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
 
-        import {getDatebase, ref, set, child, update, remove}
+        import {getDatabase, ref, set, child, update, remove}
         from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"
 
-        const db = getDatebase();
+        const db = getDatabase();
 
 
         var namebox = document.getElementById("name")
