@@ -81,7 +81,15 @@
 
         function InsertDate(){
             set(ref(db, "TheStudents/"+  namebox.value),{
-            NameofStd: namebox.value});
+            NameofStd: namebox.value, 
+            Date: input-date.value,
+        })
+.then(() => {
+console.log("Data saved successfully!")
+})
+.catch((error) => {
+    console.log("Error!")
+});
         }
 
         insBtn.addEventListener('click', InsertDate)
