@@ -3,8 +3,6 @@
 //import { getDatabase } from "firebase/database";
 
 
-firebase.initializeApp(config);
-
 
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"
