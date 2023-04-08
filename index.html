@@ -77,13 +77,13 @@
 
 
         var namebox = document.getElementById("name")
-        var inputDate = document.getElementById("inputDate")
+        var datebox = document.getElementById("inputDate")
         var insBtn = document.getElementById("addBtn")
 
         function InsertDate(){
             set(ref(db, "TheStudents/"+  namebox.value),{
             NameofStd: namebox.value, 
-            Date: inputDate.value,
+            Date: datebox.value,
         })
 .then(() => {
 console.log("Data saved successfully!")
