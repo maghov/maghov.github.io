@@ -20,8 +20,8 @@
             <label for="name">Name:</label>
             <input type="text" id="name">
          
-            <label for="input-date">Input Date:</label>
-            <input type="date" id="input-date" required>
+            <label for="inputDate">Input Date:</label>
+            <input type="date" id="inputDate" required>
             <div class="buttons">
                 <button id="addBtn" onclick="addItem()">Add</button>
                 <button onclick="clearTable()">Clear table</button>
@@ -82,7 +82,7 @@
         function InsertDate(){
             set(ref(db, "TheStudents/"+  namebox.value),{
             NameofStd: namebox.value, 
-            Date: input-date.value,
+            Date: inputDate.value,
         })
 .then(() => {
 console.log("Data saved successfully!")

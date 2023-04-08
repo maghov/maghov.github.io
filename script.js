@@ -12,13 +12,13 @@ function addItem() {
  // Check if input date is provided
   console.log('addItem function is running');
 
- if (!document.getElementById("input-date").value) {
+ if (!document.getElementById("inputDate").value) {
    alert("Please provide a valid input date!!!!");
    return;
  }
 
  // Get the input date from the text field and convert to ISO 8601 format
- const inputDate = new Date(document.getElementById("input-date").valueAsNumber).toISOString();
+ const inputDate = new Date(document.getElementById("inputDate").valueAsNumber).toISOString();
 
  // Check if the date has already been added
  if (addedDates.includes(inputDate)) {
@@ -53,7 +53,7 @@ function addItem() {
  addedDates.push(inputDate);
 
  // Reset the input date field
- document.getElementById("input-date").value = "";
+ document.getElementById("inputDate").value = "";
 
  // Stop the timer
  clearInterval(timer);
