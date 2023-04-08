@@ -1,5 +1,3 @@
-import { getDatabase, ref, set } from "firebase/database";
-
 
 let timer;
 let resultNumber = 0;
