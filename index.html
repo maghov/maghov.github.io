@@ -84,7 +84,7 @@
         function InsertDate(){
             set(ref(db, "TheStudents/"+  namebox.value),{
             NameofStd: namebox.value, 
-            NumberofStd: namebox.numberbox, 
+            NumberofStd: namebox.value, 
             Date: datebox.value,
         })
 .then(() => {
