@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+!--<header>
         <h1>Days and Hours Counter</h1>
     </header>
 
@@ -23,7 +23,7 @@
             <label for="input-date">Input Date:</label>
             <input type="date" id="input-date" required>
             <div class="buttons">
-                <button onclick="addItem()">Add</button>
+                <button id="addBtn" onclick="addItem()">Add</button>
                 <button onclick="clearTable()">Clear table</button>
             </div>
         </form>
@@ -69,6 +69,23 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
+
+        import {getDatebase, ref, set, child, update, remove}
+        from "https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"
+
+        const db = getDatebase();
+
+
+        var namebox = document.getElementById("name")
+        var insBtn = document.getElementById("addBtn")
+
+        function InsertDate(){
+            set(ref(db, "TheStudents/"+ rollbox.value),{
+            NameofStd: namebox.value});
+        }
+
+        insBtn.addEventListener('click', InsertDate)
+
       </script>
 
 <button onclick="testFirebase()">Firebase</button>
