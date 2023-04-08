@@ -3,7 +3,11 @@
 //import { getDatabase } from "firebase/database";
 
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
- import { getDatabase } from "firebase/database";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"
+import { collection, getDocs, addDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"
+import { query, orderBy, limit, where, onSnapshot } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-firestore.js"
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
 console.log('index js');
 
@@ -23,7 +27,7 @@ const app = initializeApp(firebaseConfig);
 
 
 // Initialize Realtime Database and get a reference to the service
-const database = getDatabase(app);
+const database = getFirestore(app);
 
 
 // Add data to a Firebase Realtime Database location
