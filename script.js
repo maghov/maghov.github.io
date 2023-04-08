@@ -3,6 +3,8 @@ let resultNumber = 0;
 const resultTable = document.getElementById("result-table-body");
 const addedDates = [];
 
+console.log('scrip.js is running')
+
 function addItem() {
  // Check if input date is provided
   console.log('addItem function is running');
