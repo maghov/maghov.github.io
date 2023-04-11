@@ -79,8 +79,14 @@
         var namebox = document.getElementById("name")
         var numberbox = document.getElementById("number")
         var datebox = document.getElementById("inputDate")
-        console.log('datebox' + datebox)
-        console.log('datebox value' + datebox.value)
+
+        var dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        var date = new Date();
+        var strDate = dateFormat.format(datebox).toString();
+
+
+        console.log('strDate' + strDate)
+        console.log('strDate value' + strDate.value)
         var insBtn = document.getElementById("addBtn")
 
         function InsertDate(){
