@@ -19,6 +19,7 @@
         <form>
             <label for="name">Name:</label>
             <input type="text" id="name">
+            <label for="name">Wish:</label>
             <input type="text" id="number">
             <label for="inputDate">Input Date:</label>
             <input type="date" id="inputDate" required>
@@ -107,7 +108,7 @@ console.log("Data saved successfully!")
 
 
 const dbRef = ref(getDatabase());
-get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+get(child(dbRef, "TheStudents/"+"Alexane Homenick")).then((snapshot) => {
   if (snapshot.exists()) {
     console.log(snapshot.val());
   } else {
