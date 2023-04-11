@@ -79,7 +79,7 @@
         var namebox = document.getElementById("name")
         var numberbox = document.getElementById("number")
         //var datebox = document.getElementById("inputDate")
-        var datebox = new Date(document.getElementById("inputDate").valueAsNumber);
+        var datebox = document.getElementById("inputDate").valueAsNumber;
         var toDay = new Date();
 
 
@@ -91,7 +91,7 @@
             set(ref(db, "TheStudents/"+  namebox.value),{
             NameofStd: namebox.value, 
             NumberofStd: numberbox.value, 
-            Date: datebox.value,
+            Date: datebox,
         })
 .then(() => {
 console.log("Data saved successfully!")
