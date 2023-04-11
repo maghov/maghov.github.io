@@ -103,6 +103,17 @@ console.log("Data saved successfully!")
 
         insBtn.addEventListener('click', InsertDate)
 
+
+
+  // on() method
+  firebase.database().ref('data').on('value',(snap)=>{
+    console.log('snap.val()');
+    console.log(snap.val());
+  });
+
+
+
+        
       </script>
 
 
