@@ -107,7 +107,7 @@ console.log("Data saved successfully!")
 
 
 const dbRef = ref(getDatabase());
-get(child(dbRef, `TheStudents/${NameofStd}`)).then((snapshot) => {
+get(child(dbRef, `users/${userId}`)).then((snapshot) => {
   if (snapshot.exists()) {
     console.log(snapshot.val());
   } else {
