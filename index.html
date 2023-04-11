@@ -71,7 +71,7 @@
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
 
-        import {getDatabase, ref, set, child, update, remove, get}
+        import {getDatabase, ref, set, child, update, remove, get, onValue}
         from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js"
 
         const db = getDatabase();
@@ -106,17 +106,22 @@ console.log("Data saved successfully!")
 
 
 
+        const dbRef = ref(db, '/a/b/c');
 
-const dbRef = ref(getDatabase());
-get(child(dbRef, "TheStudents/"+"Alexane Homenick")).then((snapshot) => {
-  if (snapshot.exists()) {
-    console.log(snapshot.val());
-  } else {
-    console.log("No data available");
-  }
-}).catch((error) => {
-  console.error(error);
+onValue(dbRef, (snapshot) => {
+  snapshot.forEach((childSnapshot) => {
+    const childKey = childSnapshot.key;
+    const childData = childSnapshot.val();
+    console.log(childData)
+  });
+}, {
+  onlyOnce: true
 });
+
+
+
+
+
 
 
 
