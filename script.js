@@ -53,7 +53,7 @@ function addItem() {
  addedDates.push(inputDate);
 
  // Reset the input date field
- //document.getElementById("inputDate").value = "";
+ document.getElementById("inputDate").value = "";
 
  // Stop the timer
  clearInterval(timer);
