@@ -120,12 +120,12 @@ console.log("Data saved successfully!")
 
         var fragment = document.createDocumentFragment();
         var table = document.createElement("table");
-
-
-        var header = table.createTHead();
-        var row = header.insertRow(0);
-        var cell = row.insertCell(0);
-        var cell2 = row.insertCell(1);
+        var row = document.createElement("tr")
+        table.appendChild(row);
+       // var header = table.createTHead();
+       // var row = header.insertRow(0);
+       // var cell = row.insertCell(0);
+       // var cell2 = row.insertCell(1);
 
          cell.innerHTML = "Name";
          cell2.innerHTML = "Wish";
