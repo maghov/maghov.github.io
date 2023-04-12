@@ -131,7 +131,7 @@ console.log("Data saved successfully!")
     const childKey = childSnapshot.key;
     const childData =  JSON.stringify(childSnapshot.val());
 
-    console.log('test' + childSnapshot.val('NameofStd'))
+    console.log('test' + childSnapshot.val().NameofStd)
 
     var tr = document.createElement("tr");
     var trValues = [childKey, childData];
