@@ -105,13 +105,19 @@ console.log("Data saved successfully!")
 .catch((error) => {
     console.log("Error!")
 });
+
+
+
+
+
+
         }
 
         insBtn.addEventListener('click', InsertDate)
 
 
 
-        const dbRef = ref(db, '/a/b/c');
+        const dbRef = ref(db, 'TheStudents/');
 
 onValue(dbRef, (snapshot) => {
   snapshot.forEach((childSnapshot) => {
