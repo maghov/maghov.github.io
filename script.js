@@ -6,7 +6,7 @@ const addedDates = [];
 
 console.log('scrip.js is running')
 
-///////////////////////////
+////////////////////////////
  // Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
@@ -37,15 +37,7 @@ console.log('scrip.js is running')
 
 
  var namebox = document.getElementById("name")
- var numberbox = document.getElementById("number")
- //var datebox = document.getElementById("inputDate")
- var datebox = document.getElementById("inputDate");
- var toDay = new Date();
 
-
- console.log('toDay' + toDay)
- console.log('datebox value' + datebox)
- var insBtn = document.getElementById("addBtn")
 
  function InsertDate(){
      set(ref(db, "TheStudents/"+  namebox.value),{
@@ -61,7 +53,7 @@ console.log("Error!")
 });
  }
 
- insBtn.addEventListener('click', InsertDate)
+ 
 
 
 
@@ -77,18 +69,7 @@ console.log(childData)
 onlyOnce: true
 });
 
-
-
-
-//////////////////////////////
-
-
-
-
-
-
-
-
+////////////////////////
 
 function addItem() {
  // Check if input date is provided
