@@ -117,31 +117,42 @@ console.log("Data saved successfully!")
 
 
 
+
+        var fragment = document.createDocumentFragment();
+        var table = document.createElement("table");
+
+
+
         const dbRef = ref(db, 'TheStudents/');
 
-onValue(dbRef, (snapshot) => {
-  snapshot.forEach((childSnapshot) => {
+    onValue(dbRef, (snapshot) => {
+    snapshot.forEach((childSnapshot) => {
     const childKey = childSnapshot.key;
     const childData = childSnapshot.val();
+    var tr = document.createElement("tr");
+    var trValues = [childSnapshot.key, childSnapshot.val()];
+
+    for (var i = 0; i < trValues.length; i++) {
+      var td = document.createElement("td");
+
+      td.textContent = trValues[i];
+      tr.appendChild(td);
+    }
+
+    table.appendChild(tr);
     console.log('childData' + JSON.stringify(childData))
     console.log('childKey' + childKey)
   });
 }, {
   onlyOnce: true
 });
-
-
-ref.on("value", function(snapshot) {
-   console.log(snapshot.val());
-}, function (error) {
-   console.log("Error: " + error.code);
-});
-
+fragment.appendChild(table);
+document.body.appendChild(fragment);
 
         
       </script>
 
-
+<div id="myDynamicTable"></div>
 
     <script src="script.js"></script>
 </body>
