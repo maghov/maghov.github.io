@@ -54,6 +54,10 @@
  import {getDatabase, ref, set, child, update, remove, get, onValue}
  from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js"
 
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+ const analytics = getAnalytics(app);
+
 
 
 
