@@ -123,7 +123,7 @@ onValue(dbRef, (snapshot) => {
   snapshot.forEach((childSnapshot) => {
     const childKey = childSnapshot.key;
     const childData = childSnapshot.val();
-    console.log('childData' + childData)
+    console.log('childData' + JSON.stringify(childData))
     console.log('childKey' + childKey)
   });
 }, {
