@@ -134,18 +134,16 @@ console.log("Data saved successfully!")
     console.log('NameofStd' + childSnapshot.val().NameofStd)
     console.log('NumberofStd' + childSnapshot.val().NumberofStd)
 
-    console.log('thistest' + childSnapshot.length)
-
     var tr = document.createElement("tr");
     var trValues = [childKey, childData];
 
-
-    console.log('trValues.length' + trValues.length)
-    for (var i = 0; i < trValues.length; i++) {
-      var td = document.createElement("td");
+    var size = Object.keys(childSnapshot).length;
+    for (var i = 0; i < size; i++) {
+        var td = document.createElement("td");
       td.textContent = trValues[i];
       tr.appendChild(td);
     }
+
 
     table.appendChild(tr);
     //console.log('childData' + JSON.stringify(childData))
