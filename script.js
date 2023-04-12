@@ -6,20 +6,14 @@ const addedDates = [];
 
 console.log('scrip.js is running')
 
-////////////////////////////
 
 
 
 
 
+ function insertDate(){
+  var namebox = document.getElementById("name")
 
-
-
-
- var namebox = document.getElementById("name")
-
-
- function InsertDate(){
      set(ref(db, "TheStudents/"+  namebox.value),{
      NameofStd: namebox.value, 
      NumberofStd: numberbox.value, 
