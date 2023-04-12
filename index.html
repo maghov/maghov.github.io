@@ -139,8 +139,8 @@ console.log("Data saved successfully!")
 console.log('obje' + Object.keys(childSnapshot.val()).length)
     var size = Object.keys(childSnapshot.val()).length;
     for (var i = 0; i < size; i++) {
-        console.log('childSnapshot.val()[i]' + childSnapshot.val())
-        console.log('Object.keys(test)[i]);' + Object.keys(childSnapshot)[i]);
+        console.log('NameofStd' + childSnapshot.val().NameofStd)
+        console.log('NumberofStd' + childSnapshot.val().NumberofStd)
         var td = document.createElement("td");
       td.textContent = childSnapshot.val()[i];
       tr.appendChild(td);
