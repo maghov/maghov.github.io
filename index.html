@@ -136,11 +136,13 @@ console.log("Data saved successfully!")
 
     var tr = document.createElement("tr");
     var trValues = [childKey, childData];
-    var td = document.createElement("td");
-      td.textContent = childSnapshot.val().NameofStd;
-      tr.appendChild(td);
-      td.textContent = childSnapshot.val().NameofStd;
-      tr.appendChild(td);
+    var td1 = document.createElement("td");
+      td1.textContent = childSnapshot.val().NameofStd;
+      tr.appendChild(td1);
+
+      var td2 = document.createElement("td");
+      td2.textContent = childSnapshot.val().NumberofStd;
+      tr.appendChild(td2);
 
 
     table.appendChild(tr);
