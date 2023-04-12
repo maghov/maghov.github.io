@@ -25,7 +25,7 @@ console.log("Data saved successfully!")
 .catch((error) => {
 console.log("Error!")
 });
- }
+
 
  
 
@@ -42,7 +42,7 @@ console.log(childData)
 }, {
 onlyOnce: true
 });
-
+}
 ////////////////////////
 
 function addItem() {
