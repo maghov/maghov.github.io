@@ -139,6 +139,7 @@ console.log("Data saved successfully!")
 
     var size = Object.keys(childSnapshot).length;
     for (var i = 0; i < size; i++) {
+        console.log('inside')
         var td = document.createElement("td");
       td.textContent = trValues[i];
       tr.appendChild(td);
@@ -152,6 +153,7 @@ console.log("Data saved successfully!")
 }, {
   onlyOnce: true
 });
+
 fragment.appendChild(table);
 document.body.appendChild(fragment);
 
