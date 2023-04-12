@@ -48,7 +48,16 @@
     </footer>
 
     <script type="module">
-     
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+ import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
+
+ import {getDatabase, ref, set, child, update, remove, get, onValue}
+ from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js"
+
+
+
+
+
      var insBtn = document.getElementById("addBtn")
 
 
