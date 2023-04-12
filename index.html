@@ -128,13 +128,15 @@ console.log("Data saved successfully!")
     onValue(dbRef, (snapshot) => {
     snapshot.forEach((childSnapshot) => {
     const childKey = childSnapshot.key;
-    const childData =  JSON.stringify(childSnapshot.val());
+   
     var tr = document.createElement("tr");
     var trValues = [childKey, childData];
 
+    const childData =  JSON.stringify(childSnapshot.val());
+    
+    console.log('trValues.length' + trValues.length)
     for (var i = 0; i < trValues.length; i++) {
       var td = document.createElement("td");
-
       td.textContent = trValues[i];
       tr.appendChild(td);
     }
