@@ -123,7 +123,10 @@ console.log("Data saved successfully!")
         var header = table.createTHead();
         var row = header.insertRow(0);
         var cell = row.insertCell(0);
-         cell.innerHTML = "<b>This is a table header</b>";
+         cell.innerHTML = "Name";
+         var row = header.insertRow(0);
+        var cell = row.insertCell(1);
+         cell.innerHTML = "Wish";
 
     const dbRef = ref(db, 'TheStudents/');
 
