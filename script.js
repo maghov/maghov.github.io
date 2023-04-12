@@ -24,7 +24,7 @@ console.log('scrip.js is running')
 
 
 
- const db = getDatabase();
+
 
 
  var namebox = document.getElementById("name")
