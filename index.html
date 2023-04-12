@@ -139,9 +139,9 @@ console.log("Data saved successfully!")
 
     var size = Object.keys(childSnapshot).length;
     for (var i = 0; i < size; i++) {
-        console.log('inside' + Object.keys(test)[i])
+        console.log('inside' + Object.keys(childSnapshot)[i])
         var td = document.createElement("td");
-      td.textContent = Object.keys(test)[i];
+      td.textContent = Object.keys(childSnapshot)[i];
       tr.appendChild(td);
     }
 
