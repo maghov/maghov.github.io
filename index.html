@@ -127,7 +127,7 @@ console.log("Data saved successfully!")
 
     onValue(dbRef, (snapshot) => {
     snapshot.forEach((childSnapshot) => {
-    console.log('snapp' + snapshot)
+    console.log('snapp' + JSON.stringify(snapshot))
     const childKey = childSnapshot.key;
     const childData =  JSON.stringify(childSnapshot.val());
 
@@ -143,8 +143,8 @@ console.log("Data saved successfully!")
     }
 
     table.appendChild(tr);
-    console.log('childData' + JSON.stringify(childData))
-    console.log('childKey' + childKey)
+    //console.log('childData' + JSON.stringify(childData))
+    //console.log('childKey' + childKey)
   });
 }, {
   onlyOnce: true
