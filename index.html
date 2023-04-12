@@ -122,31 +122,26 @@ console.log("Data saved successfully!")
         var table = document.createElement("table");
 
 
-        const dbRef = ref(db, 'TheStudents/');
+    const dbRef = ref(db, 'TheStudents/');
 
     onValue(dbRef, (snapshot) => {
     snapshot.forEach((childSnapshot) => {
-    console.log('snapp' + JSON.stringify(snapshot))
+
     const childKey = childSnapshot.key;
     const childData =  JSON.stringify(childSnapshot.val());
 
-    console.log('NameofStd' + childSnapshot.val().NameofStd)
-    console.log('NumberofStd' + childSnapshot.val().NumberofStd)
-
     var tr = document.createElement("tr");
-    var trValues = [childKey, childData];
-    var td1 = document.createElement("td");
+   // var trValues = [childKey, childData];
+      var td1 = document.createElement("td");
       td1.textContent = childSnapshot.val().NameofStd;
       tr.appendChild(td1);
 
       var td2 = document.createElement("td");
-      td2.textContent = childSnapshot.val().NameofStd;
+      td2.textContent = childSnapshot.val().NumberofStd;
       tr.appendChild(td2);
 
 
     table.appendChild(tr);
-    //console.log('childData' + JSON.stringify(childData))
-    //console.log('childKey' + childKey)
   });
 }, {
   onlyOnce: true
@@ -166,8 +161,7 @@ document.body.appendChild(fragment);
             <th>Wish</th>
         </tr>
     </thead>
-    <tbody id="myDynamicTable-body">
-    </tbody>
+    <tbody id="myDynamicTable-body"></tbody>
 </table>
 
     <script src="script.js"></script>
