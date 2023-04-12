@@ -140,7 +140,7 @@ console.log('obje' + Object.keys(childSnapshot.val()).length)
     var size = Object.keys(childSnapshot.val()).length;
     for (var i = 0; i < size; i++) {
         var td = document.createElement("td");
-      td.textContent = Object.keys(childSnapshot.val()[i]);
+      td.textContent = childSnapshot.val()[i];
       tr.appendChild(td);
     }
 
