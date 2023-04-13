@@ -22,13 +22,13 @@
             <label for="name">Name:</label>
             <input type="text" id="name" required>
             <label for="name">Wish:</label>
-            <input type="text" id="number" required>
+            <input type="text" id="number" rsequired>
             <label for="inputDate">Input Date:</label>
             <input type="date" id="inputDate">
             <div class="buttons">
                 <button id="addBtn" onclick="addItem()">Add</button>
                 <button onclick="insertDate()">Clear table</button>
-                <button id="countBtn">Countv5</button>
+                <button id="countBtn">Countv6</button>
             </div>
         </form>
 
@@ -127,14 +127,18 @@
                     currentNumber = snapshot.val(); 
                     newNumber = ++currentNumber;
                     console.log('newnumber' + newNumber)
+                    setNewValue(newNumber);
                 } else {
                     console.log("No data available");
                     newNumber = addNumber;
+                    setNewValue(newNumber);
                 }
             }).catch((error) => {
                 console.error(error);
             });
 
+
+            function setNewValue(){
             set(ref(db, "clicker/"), {
                 count: newNumber,
             })
@@ -144,7 +148,7 @@
                 .catch((error) => {
                     console.log("Error!")
                 });
-
+            }
         }
          
 
