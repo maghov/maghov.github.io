@@ -121,7 +121,8 @@
             get(child(dbRef1, `clicker/count`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     console.log(snapshot.val());
-                    addNumber = snapshot.val()++; 
+                    addNumber = snapshot.val(); 
+                    var newNumber = addNumber++;
                 } else {
                     console.log("No data available");
                 }
