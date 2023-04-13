@@ -119,10 +119,11 @@
 
         countBtn.addEventListener('click', updateNumber)
 
-        const dbRef1 = ref(getDatabase());
+        
 
 
         function updateNumber() {
+            const dbRef1 = ref(getDatabase());
             var currentNumber;
             var newNumber;
             get(child(dbRef1, `clicker/count`)).then((snapshot) => {
