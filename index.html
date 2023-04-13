@@ -93,12 +93,13 @@
         var datebox = document.getElementById("inputDate");
         var toDay = new Date();
 
-        var inputDate = new Date(document.getElementById("inputDate").valueAsNumber).toISOString();
+       
 
         var insBtn = document.getElementById("addBtn")
         var countBtn = document.getElementById("countBtn")
 
         function InsertDate() {
+            var inputDate = new Date(datebox.valueAsNumber).toISOString();
             set(ref(db, "TheStudents/" + namebox.value), {
                 NameofStd: namebox.value,
                 NumberofStd: numberbox.value,
