@@ -5,105 +5,105 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Days and Hours Counter</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Days and Hours Counter</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 !--<header>
-        <h1>Days and Hours Counter</h1>
-    </header>
+    <h1>Days and Hours Counter</h1>
+</header>
 
-    <main>
-        <form>
-            <label for="name">Name:</label>
-            <input type="text" id="name">
-            <label for="name">Wish:</label>
-            <input type="text" id="number">
-            <label for="inputDate">Input Date:</label>
-            <input type="date" id="inputDate" required>
-            <div class="buttons">
-                <button id="addBtn" onclick="addItem()">Add</button>
-                <button onclick="insertDate()">Clear table</button>
-            </div>
-        </form>
+<main>
+    <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name">
+        <label for="name">Wish:</label>
+        <input type="text" id="number">
+        <label for="inputDate">Input Date:</label>
+        <input type="date" id="inputDate" required>
+        <div class="buttons">
+            <button id="addBtn" onclick="addItem()">Add</button>
+            <button onclick="insertDate()">Clear table</button>
+        </div>
+    </form>
 
-        <table id="result-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Input Date</th>
-                    <th>Days Since</th>
-                </tr>
-            </thead>
-            <tbody id="result-table-body">
-            </tbody>
-        </table>
-    </main>
-    
-    <footer>
-        <p>&copy; 2023 Your Name1</p>
-    </footer>
+    <table id="result-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Input Date</th>
+                <th>Days Since</th>
+            </tr>
+        </thead>
+        <tbody id="result-table-body">
+        </tbody>
+    </table>
+</main>
 
-
-    
-
-
-    <script type="module">
-    // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyBIy7mb_wS05I_0ICLMSX1P5avFim7yXsA",
-          authDomain: "chat-gtp-b0e1d.firebaseapp.com",
-          databaseURL: "https://chat-gtp-b0e1d-default-rtdb.europe-west1.firebasedatabase.app",
-          projectId: "chat-gtp-b0e1d",
-          storageBucket: "chat-gtp-b0e1d.appspot.com",
-          messagingSenderId: "617084173940",
-          appId: "1:617084173940:web:e66612d6dae0337d4e9b21",
-          measurementId: "G-TFJ234R5B9"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-
-        import {getDatabase, ref, set, child, update, remove, get, onValue}
-        from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js"
-
-        const db = getDatabase();
+<footer>
+    <p>&copy; 2023 Your Name1</p>
+</footer>
 
 
 
 
 
-        var namebox = document.getElementById("name")
-        var numberbox = document.getElementById("number")
-        //var datebox = document.getElementById("inputDate")
-        var datebox = document.getElementById("inputDate");
-        var toDay = new Date();
+<script type="module">
+// Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBIy7mb_wS05I_0ICLMSX1P5avFim7yXsA",
+      authDomain: "chat-gtp-b0e1d.firebaseapp.com",
+      databaseURL: "https://chat-gtp-b0e1d-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "chat-gtp-b0e1d",
+      storageBucket: "chat-gtp-b0e1d.appspot.com",
+      messagingSenderId: "617084173940",
+      appId: "1:617084173940:web:e66612d6dae0337d4e9b21",
+      measurementId: "G-TFJ234R5B9"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    import {getDatabase, ref, set, child, update, remove, get, onValue}
+    from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js"
+
+    const db = getDatabase();
 
 
-        var insBtn = document.getElementById("addBtn")
 
-        function InsertDate(){
-            set(ref(db, "TheStudents/"+  namebox.value),{
-            NameofStd: namebox.value, 
-            NumberofStd: numberbox.value, 
-            Date: datebox.value,
-        })
+
+
+    var namebox = document.getElementById("name")
+    var numberbox = document.getElementById("number")
+    //var datebox = document.getElementById("inputDate")
+    var datebox = document.getElementById("inputDate");
+    var toDay = new Date();
+
+
+    var insBtn = document.getElementById("addBtn")
+
+    function InsertDate(){
+        set(ref(db, "TheStudents/"+  namebox.value),{
+        NameofStd: namebox.value, 
+        NumberofStd: numberbox.value, 
+        Date: datebox.value,
+    })
 .then(() => {
 console.log("Data saved successfully!")
 })
 .catch((error) => {
-    console.log("Error!")
+console.log("Error!")
 });
 
 
@@ -111,87 +111,87 @@ console.log("Data saved successfully!")
 
 
 
-        }
+    }
 
-        insBtn.addEventListener('click', InsertDate)
-
-
-
-
-        var fragment = document.createDocumentFragment();
-        var table = document.createElement("table");
-        
-        
-   
-        
-        
-        
-        var row = document.createElement("tr")
-        
-        
-     var cell1 = document.createElement("th");
-    // append to tr
-    row.appendChild(cell1);
-    // update th content as key value
-    cell1.innerHTML = 'Name';
-    cell1.innerHTML = 'Wish';
-        
-        
-        
-        ////
-       //var cell = row.insertCell(0);
-       //var cell2 = row.insertCell(1);
-        //cell.innerHTML = "Name";
-         //cell2.innerHTML = "Wish";
-        table.appendChild(row);
-
-
-       // var header = table.createTHead();
-       // var row = header.insertRow(0);
-       // var cell = row.insertCell(0);
-       // var cell2 = row.insertCell(1);
-
-        // cell.innerHTML = "Name";
-         //cell2.innerHTML = "Wish";
-
-    const dbRef = ref(db, 'TheStudents/');
+    insBtn.addEventListener('click', InsertDate)
 
 
 
 
-    onValue(dbRef, (snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-
-    const childKey = childSnapshot.key;
-    const childData =  JSON.stringify(childSnapshot.val());
-
-    var tr = document.createElement("tr");
-   // var trValues = [childKey, childData];
-      var td1 = document.createElement("td");
-      td1.textContent = childSnapshot.val().NameofStd;
-      tr.appendChild(td1);
-
-      var td2 = document.createElement("td");
-      td2.textContent = childSnapshot.val().NumberofStd;
-      tr.appendChild(td2);
+    var fragment = document.createDocumentFragment();
+    var table = document.createElement("table");
 
 
-    table.appendChild(tr);
-  });
+
+
+
+
+    var row = document.createElement("tr")
+
+
+ var cell1 = document.createElement("th");
+row.appendChild(cell1);
+cell1.innerHTML = 'Name';
+var cell2 = document.createElement("th");
+row.appendChild(cell2);
+cell2.innerHTML = 'Wish';
+
+
+
+    ////
+   //var cell = row.insertCell(0);
+   //var cell2 = row.insertCell(1);
+    //cell.innerHTML = "Name";
+     //cell2.innerHTML = "Wish";
+    table.appendChild(row);
+
+
+   // var header = table.createTHead();
+   // var row = header.insertRow(0);
+   // var cell = row.insertCell(0);
+   // var cell2 = row.insertCell(1);
+
+    // cell.innerHTML = "Name";
+     //cell2.innerHTML = "Wish";
+
+const dbRef = ref(db, 'TheStudents/');
+
+
+
+
+onValue(dbRef, (snapshot) => {
+snapshot.forEach((childSnapshot) => {
+
+const childKey = childSnapshot.key;
+const childData =  JSON.stringify(childSnapshot.val());
+
+var tr = document.createElement("tr");
+// var trValues = [childKey, childData];
+  var td1 = document.createElement("td");
+  td1.textContent = childSnapshot.val().NameofStd;
+  tr.appendChild(td1);
+
+  var td2 = document.createElement("td");
+  td2.textContent = childSnapshot.val().NumberofStd;
+  tr.appendChild(td2);
+
+
+table.appendChild(tr);
+});
 }, {
-  onlyOnce: true
+onlyOnce: true
 });
 
 fragment.appendChild(table);
 document.body.appendChild(fragment);
 
-        
-      </script>
+
+  </script>
 
 <div id="myDynamicTable"></div>
 
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
 
