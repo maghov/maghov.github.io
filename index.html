@@ -28,7 +28,7 @@
             <div class="buttons">
                 <button id="addBtn" onclick="addItem()">Add</button>
                 <button onclick="insertDate()">Clear table</button>
-                <button onclick="countBtn()">Count</button>
+                <button id="countBtn">Countv2</button>
             </div>
         </form>
 
@@ -113,7 +113,7 @@
 
         insBtn.addEventListener('click', InsertDate)
 
-        insBtn.addEventListener('click', updateNumber)
+        countBtn.addEventListener('click', updateNumber)
 
         const dbRef1 = ref(getDatabase());
 
