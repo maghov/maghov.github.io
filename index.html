@@ -120,11 +120,15 @@
         function updateNumber() {
             var addNumber = 1;
 
-            const starCountRef = ref(db, 'clicker/');
-onValue(starCountRef, (snapshot) => {
-  const data = snapshot.val();
-  console.log('data' + data)
-});
+            get(child(dbRef, `clicker/`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    console.log(snapshot.val());
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                console.error(error);
+            });
 
 
             set(ref(db, "clicker/"), {
