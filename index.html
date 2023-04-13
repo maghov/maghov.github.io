@@ -125,39 +125,26 @@ console.log("Error!")
 
 
 
-
-    var row = document.createElement("tr")
-
-
+///Table header
+ var row = document.createElement("tr")
+ 
  var cell1 = document.createElement("th");
-row.appendChild(cell1);
-cell1.innerHTML = 'Name';
-var cell2 = document.createElement("th");
-row.appendChild(cell2);
-cell2.innerHTML = 'Wish';
+ var cell2 = document.createElement("th");
+ var cell3 = document.createElement("th");
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+    row.appendChild(cell3);
+        cell1.innerHTML = 'Name';
+        cell2.innerHTML = 'Wish';
+        cell3.innerHTML = 'Date';
 
+  table.appendChild(row);
+//Table header END
 
-
-    ////
-   //var cell = row.insertCell(0);
-   //var cell2 = row.insertCell(1);
-    //cell.innerHTML = "Name";
-     //cell2.innerHTML = "Wish";
-    table.appendChild(row);
-
-
-   // var header = table.createTHead();
-   // var row = header.insertRow(0);
-   // var cell = row.insertCell(0);
-   // var cell2 = row.insertCell(1);
-
-    // cell.innerHTML = "Name";
-     //cell2.innerHTML = "Wish";
-
+    
+    
+    
 const dbRef = ref(db, 'TheStudents/');
-
-
-
 
 onValue(dbRef, (snapshot) => {
 snapshot.forEach((childSnapshot) => {
@@ -165,6 +152,7 @@ snapshot.forEach((childSnapshot) => {
 const childKey = childSnapshot.key;
 const childData =  JSON.stringify(childSnapshot.val());
 
+//Table body 
 var tr = document.createElement("tr");
 // var trValues = [childKey, childData];
   var td1 = document.createElement("td");
@@ -177,6 +165,8 @@ var tr = document.createElement("tr");
 
 
 table.appendChild(tr);
+//Table body END 
+    
 });
 }, {
 onlyOnce: true
