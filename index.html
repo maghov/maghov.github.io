@@ -120,7 +120,24 @@ console.log("Data saved successfully!")
 
         var fragment = document.createDocumentFragment();
         var table = document.createElement("table");
+        
+        
+   
+        
+        
+        
         var row = document.createElement("tr")
+        
+        
+         var cell1 = document.createElement("th");
+    // append to tr
+    row.appendChild(cell1);
+    // update th content as key value
+    cell1.innerHTML = 'Wish';
+        
+        
+        
+        ////
         var cell = row.insertCell(0);
         var cell2 = row.insertCell(1);
         cell.innerHTML = "Name";
