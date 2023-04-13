@@ -97,7 +97,7 @@
             set(ref(db, "TheStudents/"+  namebox.value),{
             NameofStd: namebox.value, 
             NumberofStd: numberbox.value, 
-            Date: datebox.value,
+            Date: toDay,
         })
 .then(() => {
 console.log("Data saved successfully!")
