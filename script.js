@@ -7,44 +7,6 @@ const addedDates = [];
 console.log('scrip.js is running')
 
 
-
-
-
-
- function insertDate(){
-  var namebox = document.getElementById("name")
-
-     set(ref(db, "TheStudents/"+  namebox.value),{
-     NameofStd: namebox.value, 
-     NumberofStd: numberbox.value, 
-     Date: datebox.value,
- })
-.then(() => {
-console.log("Data saved successfully!")
-})
-.catch((error) => {
-console.log("Error!")
-});
-
-
- 
-
-
-
- const dbRef = ref(db, '/a/b/c');
-
-onValue(dbRef, (snapshot) => {
-snapshot.forEach((childSnapshot) => {
-const childKey = childSnapshot.key;
-const childData = childSnapshot.val();
-console.log(childData)
-});
-}, {
-onlyOnce: true
-});
-}
-////////////////////////
-
 function addItem() {
  // Check if input date is provided
   console.log('addItem function is running');
@@ -103,20 +65,3 @@ function clearTable() {
  const email = 'test1234';
 saveToFirebase(email);
 }
-
-
-
-function saveToFirebase(email) {
-    var emailObject = {
-        email: email
-    };
- console.log('thsaveToFirebaseis function is running');
-    firebase.database().ref('subscription-entries').push().set(emailObject)
-        .then(function(snapshot) {
-            success(); // some success method
-        }, function(error) {
-            console.log('error' + error);
-            error(); // some error method
-        });
-}
-
