@@ -93,7 +93,8 @@
             console.log('datebox'+ datebox)
        
         //var datebox = document.getElementById("inputDate");
-        var toDay = new Date();
+        const d = new Date();
+        let text = d.toISOString();
 
        
 
@@ -105,7 +106,7 @@
             set(ref(db, "TheStudents/" + namebox.value), {
                 NameofStd: namebox.value,
                 NumberofStd: numberbox.value,
-                Date: datebox,
+                Date: text,
             })
                 .then(() => {
                     console.log("Data saved successfully!")
