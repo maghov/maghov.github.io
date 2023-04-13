@@ -113,24 +113,18 @@
 
         insBtn.addEventListener('click', updateNumber)
 
-        const dbRef1 = ref(getDatabase());
-        get(child(dbRef1, `clicker/count`)).then((snapshot) => {
-                if (snapshot.exists()) {
-                    console.log(snapshot.val());
-                } else {
-                    console.log("No data available");
-                }
-            }).catch((error) => {
-                console.error(error);
-            });
+        
+       
 
 
         function updateNumber() {
-            var addNumber = 1;
-
+            var addNumber = 0;
+            const dbRef1 = ref(getDatabase());
             get(child(dbRef1, `clicker/`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     console.log(snapshot.val());
+                    var newNumber = snapshot++;
+                    console.log('newNumber' + newNumber);
                 } else {
                     console.log("No data available");
                 }
