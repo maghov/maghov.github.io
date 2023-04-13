@@ -28,6 +28,7 @@
             <div class="buttons">
                 <button id="addBtn" onclick="addItem()">Add</button>
                 <button onclick="insertDate()">Clear table</button>
+                <button onclick="countBtn()">Count</button>
             </div>
         </form>
 
@@ -94,6 +95,7 @@
 
 
         var insBtn = document.getElementById("addBtn")
+        var countBtn = document.getElementById("countBtn")
 
         function InsertDate() {
             set(ref(db, "TheStudents/" + namebox.value), {
@@ -120,7 +122,7 @@
             var addNumber = 1;
             get(child(dbRef1, `clicker/count`)).then((snapshot) => {
                 if (snapshot.exists()) {
-                    console.log(snapshot.val());
+                    console.log(snapshot.val() + 'updatenumber');
                     addNumber = snapshot.val(); 
                     var newNumber = addNumber++;
                 } else {
