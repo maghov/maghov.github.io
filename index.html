@@ -113,8 +113,8 @@
 
         insBtn.addEventListener('click', updateNumber)
 
-
-        get(child(dbRef, `clicker/`)).then((snapshot) => {
+        const dbRef1 = ref(getDatabase());
+        get(child(dbRef1, `clicker/count`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     console.log(snapshot.val());
                 } else {
@@ -128,7 +128,7 @@
         function updateNumber() {
             var addNumber = 1;
 
-            get(child(dbRef, `clicker/`)).then((snapshot) => {
+            get(child(dbRef1, `clicker/`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     console.log(snapshot.val());
                 } else {
