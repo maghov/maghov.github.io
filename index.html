@@ -120,8 +120,15 @@
         function updateNumber() {
             var addNumber = 1;
 
-            set(ref(db, "Clicker/"), {
-                NameofStd: addNumber,
+            const starCountRef = ref(db, 'clicker/');
+onValue(starCountRef, (snapshot) => {
+  const data = snapshot.val();
+  console.log('data' + data)
+});
+
+
+            set(ref(db, "clicker/"), {
+                count: addNumber,
             })
                 .then(() => {
                     console.log("Data saved successfully!")
