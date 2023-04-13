@@ -120,11 +120,12 @@
 
         function updateNumber() {
             var addNumber = 1;
+            var newNumber;
             get(child(dbRef1, `clicker/count`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     console.log(snapshot.val() + 'updatenumber');
                     addNumber = snapshot.val(); 
-                    var newNumber = addNumber++;
+                    newNumber = addNumber++;
                 } else {
                     console.log("No data available");
                 }
