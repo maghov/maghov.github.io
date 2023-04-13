@@ -89,7 +89,8 @@
 
         var namebox = document.getElementById("name")
         var numberbox = document.getElementById("number")
-        //var datebox = document.getElementById("inputDate")
+        var datebox = document.getElementById('datePicker').value;
+        console.log('datebox'+ datebox)
         var datebox = document.getElementById("inputDate");
         var toDay = new Date();
 
@@ -103,7 +104,7 @@
             set(ref(db, "TheStudents/" + namebox.value), {
                 NameofStd: namebox.value,
                 NumberofStd: numberbox.value,
-                Date: setDate,
+                Date: datebox,
             })
                 .then(() => {
                     console.log("Data saved successfully!")
