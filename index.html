@@ -114,17 +114,16 @@
         insBtn.addEventListener('click', updateNumber)
 
         
-       
-
+        
 
         function updateNumber() {
-            var addNumber = 0;
+            var addNumber = 1;
             const dbRef1 = ref(getDatabase());
-            get(child(dbRef1, `clicker/`)).then((snapshot) => {
+            get(child(dbRef1, `clicker/count`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     console.log(snapshot.val());
-                    var newNumber = snapshot++;
-                    console.log('newNumber' + newNumber);
+                    addNumber++;
+                    console.log('addNumber' + addNumber);
                 } else {
                     console.log("No data available");
                 }
