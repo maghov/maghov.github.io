@@ -105,24 +105,34 @@ console.log("Data saved successfully!")
 .catch((error) => {
 console.log("Error!")
 });
-
-
-
-
-
-
     }
 
     insBtn.addEventListener('click', InsertDate)
+
+    insBtn.addEventListener('click', updateNumber)
+
+    function updateNumber(){
+
+        var addNumber = 1; 
+
+            set(ref(db, "Clicker/"+  addNumber),{
+            NameofStd: namebox.value, 
+        })
+.then(() => {
+console.log("Data saved successfully!")
+})
+.catch((error) => {
+console.log("Error!")
+});
+
+
+
 
 
 
 
     var fragment = document.createDocumentFragment();
     var table = document.createElement("table");
-
-
-
 
 
 ///Table header
