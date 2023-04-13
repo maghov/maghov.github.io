@@ -99,7 +99,6 @@
         var countBtn = document.getElementById("countBtn")
 
         function InsertDate() {
-            var inputDate = new Date(datebox.valueAsNumber).toISOString();
             set(ref(db, "TheStudents/" + namebox.value), {
                 NameofStd: namebox.value,
                 NumberofStd: numberbox.value,
