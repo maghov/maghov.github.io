@@ -28,7 +28,7 @@
             <div class="buttons">
                 <button id="addBtn" onclick="addItem()">Add</button>
                 <button onclick="insertDate()">Clear table</button>
-                <button id="countBtn">Countv3</button>
+                <button id="countBtn">Countv4</button>
             </div>
         </form>
 
@@ -120,12 +120,12 @@
 
         function updateNumber() {
             var addNumber = 1;
-            var newNumber;
+            var newNumber = 0;
             get(child(dbRef1, `clicker/count`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     console.log(snapshot.val() + 'updatenumber');
                     addNumber = snapshot.val(); 
-                    newNumber = addNumber++;
+                    newNumber = ++addNumber;
                     console.log('newnumber' + newNumber)
                 } else {
                     console.log("No data available");
