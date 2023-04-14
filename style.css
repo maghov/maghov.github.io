@@ -116,3 +116,30 @@ table {
   tr:hover {
     background-color: #ddd;
   }
+
+
+  .counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+  }
+  
+  .circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 80px;
+    background-color: #ff5e5e;
+    border-radius: 50%;
+  }
+  
+  .number {
+    font-size: 32px;
+    color: #fff;
+  }
+  
