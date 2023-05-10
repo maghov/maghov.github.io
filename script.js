@@ -69,6 +69,6 @@ saveToFirebase(email);
 }
 
 
-function updateNumber(){
-  
+function updateNumberCount(){
+console.log('updateNumberCount');
 }
