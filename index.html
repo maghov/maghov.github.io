@@ -13,16 +13,16 @@
 </head>
 
 <body>
-     <header>
+    !--<header>
         <h1>Days and Hours Counter</h1>
     </header>
-<!--
+
     <main>
         <form>
             <label for="name">Name:</label>
             <input type="text" id="name" required>
             <label for="name">Wish:</label>
-            <input type="text" id="number" required>
+            <input type="text" id="number" rsequired>
             <label for="inputDate">Input Date:</label>
             <input type="date" id="inputDate">
             <div class="buttons">
@@ -44,9 +44,13 @@
             <tbody id="result-table-body">
             </tbody>
         </table>
-         
+        <div class="counter">
+            <div id="countBtn" class="circle">
+              <span class="number">1</span>
+            </div>
+          </div>          
     </main>
--->
+
     <footer>
         <p>&copy; 2023 Your Name1</p>
     </footer>
@@ -86,7 +90,7 @@
 
 
 
-    
+var testVar = 'test124';
 
         var namebox = document.getElementById("name")
         var numberbox = document.getElementById("number")
@@ -160,7 +164,7 @@
          
 
 
-var testVariable = 'test124';
+
 
 
         var fragment = document.createDocumentFragment();
@@ -221,19 +225,9 @@ var testVariable = 'test124';
     </script>
 
     <div id="myDynamicTable"></div>
-
+    
 
     <script src="script.js"></script>
 </body>
-
-
-<p>{{testVariable}}</p>
-
-<div class="counter">
-    <div id="countBtnv2" class="circle">
-      <span class="number">{{testVariable}}</span>
-    </div>
-  </div>        
-
 
 </html>
