@@ -67,7 +67,7 @@ onlyOnce: true
 */
 
 
-  // Get the circle container element
+  /*// Get the circle container element
   const circleContainer = document.getElementById('circleContainer');
 
   // Function to create a circle element
@@ -82,4 +82,4 @@ onlyOnce: true
   const newCircle = createCircle(1);
 
   // Append the circle to the container element
-  circleContainer.appendChild(newCircle);
+  circleContainer.appendChild(newCircle);*/
