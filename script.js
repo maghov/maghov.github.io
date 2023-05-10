@@ -67,3 +67,8 @@ function clearTable() {
  const email = 'test1234';
 saveToFirebase(email);
 }
+
+
+function updateNumber(){
+  
+}
