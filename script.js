@@ -4,6 +4,8 @@ let resultNumber = 0;
 const resultTable = document.getElementById("result-table-body");
 const addedDates = [];
 
+var newNumber = '1'
+
 console.log('scrip.js is running')
 
 
