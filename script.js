@@ -70,5 +70,5 @@ saveToFirebase(email);
 
 
 function updateNumberCount(){
-console.log('updateNumberCount');
+  console.log('updateNumberCount function is running');
 }
