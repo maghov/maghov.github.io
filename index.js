@@ -67,20 +67,19 @@ onlyOnce: true
 */
 
 
-// Get the count button element
-const countBtn = document.getElementById('countBtn');
+  // Get the circle container element
+  const circleContainer = document.getElementById('circleContainer');
 
-// Add a click event listener to the button
-countBtn.addEventListener('click', () => {
-  // Get the number element inside the button
-  const numberElement = document.querySelector('#countBtn .number');
-  
-  // Get the current number value
-  let currentNumber = parseInt(numberElement.textContent);
-  
-  // Increment the number by 1
-  currentNumber++;
-  
-  // Update the number value
-  numberElement.textContent = currentNumber;
-});
+  // Function to create a circle element
+  function createCircle(number) {
+    const circle = document.createElement('div');
+    circle.classList.add('circle');
+    circle.textContent = number;
+    return circle;
+  }
+
+  // Example usage:
+  const newCircle = createCircle(1);
+
+  // Append the circle to the container element
+  circleContainer.appendChild(newCircle);
