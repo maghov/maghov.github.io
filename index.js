@@ -66,4 +66,21 @@ onlyOnce: true
 });
 */
 
-var newNumber = '12'
+
+// Get the count button element
+const countBtn = document.getElementById('countBtn');
+
+// Add a click event listener to the button
+countBtn.addEventListener('click', () => {
+  // Get the number element inside the button
+  const numberElement = document.querySelector('#countBtn .number');
+  
+  // Get the current number value
+  let currentNumber = parseInt(numberElement.textContent);
+  
+  // Increment the number by 1
+  currentNumber++;
+  
+  // Update the number value
+  numberElement.textContent = currentNumber;
+});
