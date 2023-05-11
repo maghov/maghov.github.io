@@ -82,10 +82,8 @@ function updateNumberCount(){
     return circle;
   }*/
 
- circle.circleContainer = number;
-  // Example usage:
-  const newCircle = createCircle(1);
+  circleContainer.innerText = 'New Value';
 
   // Append the circle to the container element
-  circleContainer.appendChild(newCircle);
+  //circleContainer.appendChild(newCircle);
 }
