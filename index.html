@@ -128,6 +128,16 @@ var testVar = 'test124';
 
         
 
+        function  getNumber() {
+            const dbRef1 = ref(getDatabase());
+            var currentNumber;
+            var newNumber;
+            get(child(dbRef1, `clicker/count`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const circleContainer = document.getElementById('countBtn');
+                    circleContainer.innerText = snapshot.val();  
+                }});
+            }
 
         function updateNumber() {
             const dbRef1 = ref(getDatabase());
