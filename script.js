@@ -82,7 +82,7 @@ saveToFirebase(email);
     return circle;
   }*/
 
-  circleContainer.innerText = 'New Value';
+  //circleContainer.innerText = 'New Value';
 
   // Append the circle to the container element
-  //circleContainer.appendChild(newCircle);'*/1
+  //circleContainer.appendChild(newCircle);'*/
