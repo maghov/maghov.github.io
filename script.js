@@ -69,7 +69,7 @@ saveToFirebase(email);
 }
 
 
-function updateNumberCount(){
+/*function updateNumberCount(){
   console.log('updateNumberCount function is running');
  // Get the circle container element
   const circleContainer = document.getElementById('countBtn');
@@ -85,5 +85,4 @@ function updateNumberCount(){
   circleContainer.innerText = 'New Value';
 
   // Append the circle to the container element
-  //circleContainer.appendChild(newCircle);
-}
+  //circleContainer.appendChild(newCircle);'*/1
