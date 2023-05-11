@@ -75,13 +75,14 @@ function updateNumberCount(){
   const circleContainer = document.getElementById('countBtn');
 
   // Function to create a circle element
-  function createCircle(number) {
+  /*function createCircle(number) {
     const circle = document.createElement('div');
     circle.classList.add('circle');
     circle.textContent = number;
     return circle;
-  }
+  }*/
 
+ circle.circleContainer = number;
   // Example usage:
   const newCircle = createCircle(1);
 
