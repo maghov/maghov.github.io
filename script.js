@@ -71,4 +71,20 @@ saveToFirebase(email);
 
 function updateNumberCount(){
   console.log('updateNumberCount function is running');
+ // Get the circle container element
+  const circleContainer = document.getElementById('countBtn');
+
+  // Function to create a circle element
+  function createCircle(number) {
+    const circle = document.createElement('div');
+    circle.classList.add('circle');
+    circle.textContent = number;
+    return circle;
+  }
+
+  // Example usage:
+  const newCircle = createCircle(1);
+
+  // Append the circle to the container element
+  circleContainer.appendChild(newCircle);
 }
