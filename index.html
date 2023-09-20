@@ -159,7 +159,7 @@ getNumber();
                     console.log('New number: ' + newNumber)
                     setNewValue(newNumber);
 
-                     if(!isRoundNumber(newNumber)){
+                     if(isRoundNumber(newNumber)){
                           const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                             spillerDetNoeRolle.innerText = newNumber;
                      }
