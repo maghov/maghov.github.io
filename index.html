@@ -169,9 +169,11 @@ getNumber();
 
 
             function setNewValue(){
+                      const d = new Date();
+        var lastUpdated = d.toISOString();
             set(ref(db, "clicker/"), {
                 count: newNumber,
-                lastUpdated: '20/09/2023'
+                lastUpdated: lastUpdated
             })
                 .then(() => {
                     console.log("Data saved successfully!")
