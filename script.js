@@ -8,6 +8,10 @@ var newNumber = '1'
 
 console.log('scrip.js is running')
 
+function isRoundNumber(number) {
+            console.log('isRoundNumber' + number % 100 === 0)
+                return number % 100 === 0;
+            }
 
 function addItem() {
  // Check if input date is provided
