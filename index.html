@@ -160,13 +160,11 @@ getNumber();
                     console.log('New number: ' + newNumber)
                     setNewValue(newNumber);
 
-                     isRoundNumber(newNumber);
-                    
-                function isRoundNumber(number) {
-                console.log('isRoundNumber' + number % 100 === 0)
-             var isNewNumberRoundNumber = number % 100 === 0;
-                      const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
-                    spillerDetNoeRolle.innerText = isNewNumberRoundNumber;
+                     if(isRoundNumber(newNumber)){
+                          const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
+                            spillerDetNoeRolle.innerText = newNumber;
+                     }
+                     
             }
 
                     
@@ -183,7 +181,10 @@ getNumber();
                 console.error(error);
             });
 
-
+ function isRoundNumber(number) {
+                console.log('isRoundNumber' + number % 100 === 0)
+             var isNewNumberRoundNumber = number % 100 === 0;
+ }
             function setNewValue(){
             const d = new Date();
             var lastUpdated = d.toISOString();
