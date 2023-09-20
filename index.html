@@ -46,7 +46,7 @@
         </table>
         --> 
 
-        <h1>Round number</h1>
+        <div ngIf="isRoundNumber(100)">The number is: 100</div>
         <body>
             <div class="counter">
               <div id="countBtn" class="circle">
@@ -131,7 +131,11 @@ getNumber();
 */
         countBtn.addEventListener('click', updateNumber)
 
-        
+
+        function isRoundNumber(number) {
+            console.log('isRoundNumber')
+                return number % 100 === 0;
+            }
 
         function  getNumber() {
             const dbRef1 = ref(getDatabase());
