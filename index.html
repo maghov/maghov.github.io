@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Days and Hours Countervv</title>
+    <title>Days and Hours CounterV5</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -45,12 +45,15 @@
             </tbody>
         </table>
         --> 
+
+        <title>Round Number Display</title>
         <body>
             <div class="counter">
               <div id="countBtn" class="circle">
                 <span class="number center-button"></span>
               </div>
             </div>
+             
     </main>
 
     <!--<footer>
@@ -101,8 +104,8 @@ getNumber();
             console.log('datebox'+ datebox)
        
         //var datebox = document.getElementById("inputDate");
-        const d = new Date();
-        let text = d.toISOString();
+        //const d = new Date();
+       // let text = d.toISOString();
 
        
 
@@ -169,8 +172,9 @@ getNumber();
 
 
             function setNewValue(){
-                      const d = new Date();
-        var lastUpdated = d.toISOString();
+            const d = new Date();
+            var lastUpdated = d.toISOString();
+                
             set(ref(db, "clicker/"), {
                 count: newNumber,
                 lastUpdated: lastUpdated
