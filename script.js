@@ -7,11 +7,6 @@ const addedDates = [];
 var newNumber = '1'
 
 console.log('scrip.js is runningv4')
-console.log(isRoundNumber('230'));
-function isRoundNumber(number) {
-            console.log('isRoundNumber' + number % 100 === 0)
-                return number % 100 === 0;
-            }
 
 function addItem() {
  // Check if input date is provided
