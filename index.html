@@ -171,6 +171,7 @@ getNumber();
             function setNewValue(){
             set(ref(db, "clicker/"), {
                 count: newNumber,
+                lastUpdated: '20/09/2023'
             })
                 .then(() => {
                     console.log("Data saved successfully!")
