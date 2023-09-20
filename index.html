@@ -46,7 +46,7 @@
         </table>
         --> 
 
-        <div ng-if="!isRoundNumber(100)">The number is: 100</div>
+        <div id="ifRoundNumber"></div>
         <body>
             <div class="counter">
               <div id="countBtn" class="circle">
@@ -150,12 +150,7 @@ getNumber();
             var currentNumber;
             var newNumber;
 
-            isRoundNumber('100');
-function isRoundNumber(number) {
-            console.log('isRoundNumber' + number % 100 === 0)
-                return number % 100 === 0;
-            }
-
+           
             
             get(child(dbRef1, `clicker/count`)).then((snapshot) => {
                 if (snapshot.exists()) {
@@ -164,7 +159,15 @@ function isRoundNumber(number) {
                     newNumber = ++currentNumber;
                     console.log('New number: ' + newNumber)
                     setNewValue(newNumber);
-                    
+
+                     isRoundNumber(newNumber);
+                function isRoundNumber(number) {
+                console.log('isRoundNumber' + number % 100 === 0)
+             var isNewNumberRoundNumber % 100 === 0;
+                      const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
+                    spillerDetNoeRolle.innerText = isNewNumberRoundNumber;
+            }
+
                     
                     const circleContainer = document.getElementById('countBtn');
                     circleContainer.innerText = newNumber;
