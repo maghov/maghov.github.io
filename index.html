@@ -149,6 +149,14 @@ getNumber();
             const dbRef1 = ref(getDatabase());
             var currentNumber;
             var newNumber;
+
+            isRoundNumber('100');
+function isRoundNumber(number) {
+            console.log('isRoundNumber' + number % 100 === 0)
+                return number % 100 === 0;
+            }
+
+            
             get(child(dbRef1, `clicker/count`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     console.log(snapshot.val() + 'updatenumber');
