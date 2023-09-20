@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Days and Hours CounterV6</title>
+    <title>Days and Hours CounterV7</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -46,7 +46,7 @@
         </table>
         --> 
 
-        <div ng-if="isRoundNumber(100)">The number is: 100</div>
+        <div ng-if="!isRoundNumber(100)">The number is: 100</div>
         <body>
             <div class="counter">
               <div id="countBtn" class="circle">
@@ -159,10 +159,10 @@ function isRoundNumber(number) {
             
             get(child(dbRef1, `clicker/count`)).then((snapshot) => {
                 if (snapshot.exists()) {
-                    console.log(snapshot.val() + 'updatenumber');
+                    console.log('Last number: ' + snapshot.val());
                     currentNumber = snapshot.val(); 
                     newNumber = ++currentNumber;
-                    console.log('newnumber' + newNumber)
+                    console.log('New number: ' + newNumber)
                     setNewValue(newNumber);
                     
                     
