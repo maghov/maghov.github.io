@@ -6,8 +6,8 @@ const addedDates = [];
 
 var newNumber = '1'
 
-console.log('scrip.js is runningv3')
-console.log('isRoundNumber TEST' + isRoundNumber('230'))
+console.log('scrip.js is runningv4')
+console.log(isRoundNumber('230'));
 function isRoundNumber(number) {
             console.log('isRoundNumber' + number % 100 === 0)
                 return number % 100 === 0;
