@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Days and Hours CounterV7</title>
+    <title>Days and Hours CounterV9</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -150,8 +150,7 @@ getNumber();
             var currentNumber;
             var newNumber;
 
-           
-            
+    
             get(child(dbRef1, `clicker/count`)).then((snapshot) => {
                 if (snapshot.exists()) {
                     console.log('Last number: ' + snapshot.val());
@@ -160,7 +159,7 @@ getNumber();
                     console.log('New number: ' + newNumber)
                     setNewValue(newNumber);
 
-                     if(isRoundNumber(newNumber)){
+                     if(!isRoundNumber(newNumber)){
                           const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                             spillerDetNoeRolle.innerText = newNumber;
                      }
@@ -180,7 +179,7 @@ getNumber();
 
  function isRoundNumber(number) {
                 console.log('isRoundNumber' + number % 100 === 0)
-             var isNewNumberRoundNumber = number % 100 === 0;
+             return number % 100 === 0;
  }
             function setNewValue(){
             const d = new Date();
