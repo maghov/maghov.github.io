@@ -46,7 +46,7 @@
         </table>
         --> 
 
-        <div ngIf="isRoundNumber(100)">The number is: 100</div>
+        <div ng-if="isRoundNumber(100)">The number is: 100</div>
         <body>
             <div class="counter">
               <div id="countBtn" class="circle">
@@ -133,7 +133,7 @@ getNumber();
 
 
         function isRoundNumber(number) {
-            console.log('isRoundNumber')
+            console.log('isRoundNumber' + number % 100 === 0)
                 return number % 100 === 0;
             }
 
