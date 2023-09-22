@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Days and Hours CounterV23</title>
+<title>Days and Hours CounterV24</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -147,7 +147,7 @@ getNumber();
                 var thisNumber = snapshot.val();
                 circleContainer.innerText = thisNumber;  
     
-                  if(isRoundNumber(thisNumber)){
+                  if(isRoundNumber(thisNumber, '100')){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = snapshot.val();
                   }
@@ -171,7 +171,7 @@ getNumber();
                  if(isRoundNumber(newNumber)){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = newNumber;
-                     setRoundeNumberValueAndDate(newNumber, '100');
+                     setRoundeNumberValueAndDate(newNumber);
                  } else if(!isRoundNumber(newNumber)){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = "";
