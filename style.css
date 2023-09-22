@@ -1,3 +1,31 @@
+
+ .counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+  }
+
+  .roundNumber {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 15px;
+  }
+
+
+
+
+
+
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -118,24 +146,7 @@ table {
   }
 
 
-  .counter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    width: 100px;
-    background-color: #e0e0e0;
-    border-radius: 50%;
-  }
-
-  .roundNumber {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-  }
+ 
   
   .circle {
     display: flex;
