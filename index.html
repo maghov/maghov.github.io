@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Days and Hours CounterV24</title>
+<title>Days and Hours CounterV25</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -147,7 +147,7 @@ getNumber();
                 var thisNumber = snapshot.val();
                 circleContainer.innerText = thisNumber;  
     
-                  if(isRoundNumber(thisNumber, '100')){
+                  if(isRoundNumber(thisNumber, '10')){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = snapshot.val();
                   }
@@ -168,11 +168,11 @@ getNumber();
                 console.log('New number: ' + newNumber)
                 setNewValue(newNumber);
 
-                 if(isRoundNumber(newNumber)){
+                 if(isRoundNumber(newNumber,'10')){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = newNumber;
-                     setRoundeNumberValueAndDate(newNumber);
-                 } else if(!isRoundNumber(newNumber)){
+                  if(isRoundNumber(newNumber,'100'))setRoundeNumberValueAndDate(newNumber);
+                 } else if(!isRoundNumber(newNumber,'10')){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = "";
                  }
@@ -225,9 +225,7 @@ function setRoundeNumberValueAndDate(number){
      
 
 function isRoundNumber(number, amount) {
-    console.log('amount' + amount);
-            console.log('isRoundNumber' + number % 25 === 0)
-         return number % 10 === 0;
+         return number % amount === 0;
 }
 
 
