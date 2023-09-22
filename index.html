@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Days and Hours CounterV22</title>
+<title>Days and Hours CounterV23</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -171,7 +171,7 @@ getNumber();
                  if(isRoundNumber(newNumber)){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = newNumber;
-                     setRoundeNumberValueAndDate(newNumber);
+                     setRoundeNumberValueAndDate(newNumber, '100');
                  } else if(!isRoundNumber(newNumber)){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = "";
@@ -191,7 +191,7 @@ getNumber();
         });
 
 
-function setRoundeNumberValueAndDate(){
+function setRoundeNumberValueAndDate(number){
      const d = new Date();
         var lastUpdated = d.toISOString();
             
@@ -224,7 +224,8 @@ function setRoundeNumberValueAndDate(){
     }
      
 
-function isRoundNumber(number) {
+function isRoundNumber(number, amount) {
+    console.log('amount' + amount);
             console.log('isRoundNumber' + number % 25 === 0)
          return number % 10 === 0;
 }
