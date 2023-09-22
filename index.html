@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Days and Hours CounterV21</title>
+<title>Days and Hours CounterV22</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -195,7 +195,7 @@ function setRoundeNumberValueAndDate(){
      const d = new Date();
         var lastUpdated = d.toISOString();
             
-        set(ref(db, "roundNumbers/"), {
+        set(ref(db, "roundNumbers/" + newNumber), {
             number: newNumber,
             timeStamp: lastUpdated
         })
