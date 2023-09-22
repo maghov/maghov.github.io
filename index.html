@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Days and Hours CounterV17</title>
+<title>Days and Hours CounterV18</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -144,9 +144,10 @@ getNumber();
         get(child(dbRef1, `clicker/count`)).then((snapshot) => {
             if (snapshot.exists()) {
                 const circleContainer = document.getElementById('countBtn');
-                circleContainer.innerText = snapshot.val();  
-
-                  if(isRoundNumber(snapshot.val())){
+                var thisNumber = snapshot.val();
+                circleContainer.innerText = thisNumber;  
+    
+                  if(isRoundNumber(thisNumber)){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = snapshot.val();
                   }
