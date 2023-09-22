@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Days and Hours CounterV14</title>
+<title>Days and Hours CounterV15</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -145,6 +145,10 @@ getNumber();
             if (snapshot.exists()) {
                 const circleContainer = document.getElementById('countBtn');
                 circleContainer.innerText = snapshot.val();  
+
+                  if(isRoundNumber(snapshot.val())){
+                      const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
+                        spillerDetNoeRolle.innerText = newNumber;
             }});
         }
 
@@ -162,7 +166,7 @@ getNumber();
                 console.log('New number: ' + newNumber)
                 setNewValue(newNumber);
 
-                 if(isRoundNumber(newNumber) || isRoundNumber(snapshot.val()){
+                 if(isRoundNumber(newNumber)){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = newNumber;
                  } else if(!isRoundNumber(newNumber))){
