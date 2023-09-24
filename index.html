@@ -47,8 +47,8 @@
     --> 
 
    <div>
-         <label for="name">Name:</label>
-        <input type="text" id="name" required>
+       <div id="enterName></div>
+       
 <div class="roundNumber" id="ifRoundNumber"></div>
    
         <div class="counter">
@@ -152,6 +152,11 @@ getNumber();
                   if(isRoundNumber(thisNumber, '10')){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = snapshot.val();
+
+                      var x = document.createElement("enterName");
+                      x.setAttribute("type", "text");
+                      x.setAttribute("value", "Enter name");
+                      document.body.appendChild(x);
                   }
             }});
         }
@@ -208,6 +213,8 @@ function setRoundeNumberValueAndDate(number){
                 console.log("Error!")
             });
 }
+
+        
         function setNewValue(){
         const d = new Date();
         var lastUpdated = d.toISOString();
