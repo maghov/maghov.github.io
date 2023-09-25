@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Days and Hours CounterV27</title>
+<title>Days and Hours CounterV28</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -47,7 +47,8 @@
     --> 
 
    <div>
-     <!--  <div id="enterName></div>-->
+       
+     <div id="enterName></div>
        
 <div class="roundNumber" id="ifRoundNumber"></div>
    
@@ -152,6 +153,12 @@ getNumber();
                   if(isRoundNumber(thisNumber, '10')){
                       const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
                         spillerDetNoeRolle.innerText = snapshot.val();
+
+                       
+                      var x = document.getElementById("enterName");
+                    x.setAttribute("type", "text");
+                      x.setAttribute("value", "Hello World!");
+                  document.body.appendChild(x);
 
                                       }
             }});
