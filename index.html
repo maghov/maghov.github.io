@@ -1,309 +1,1254 @@
 <!DOCTYPE html>
-
-<!--<script type="module" src="index.js"></script>-->
-<link rel="stylesheet" type="text/css" href="style.css">
-
 <html lang="en">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Days and Hours CounterV33</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter App</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js for analytics visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 
 <body>
-<!--<header>
-    <h1>Days and Hours Counter</h1>
-</header>
+    <!-- Admin Button (top-right corner) -->
+    <button id="adminBtn" class="admin-btn" title="Admin Access">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+            <path d="M12 9V7a3 3 0 00-6 0v2"></path>
+        </svg>
+    </button>
 
-<main>
-    <form>
-        <label for="name">Name:</label>
-        <input type="text" id="name" required>
-        <label for="name">Wish:</label>
-        <input type="text" id="number" rsequired>
-        <label for="inputDate">Input Date:</label>
-        <input type="date" id="inputDate">
-        <div class="buttons">
-            <button id="addBtn" onclick="addItem()">Add</button>
-            <button onclick="insertDate()">Clear table</button>
-            <button>Countv6</button>
+    <main>
+        <h1>Counter App</h1>
+
+        <div class="app-layout">
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <div class="user-info">
+                    <p>Welcome, <strong id="currentUser">Guest</strong>!</p>
+                    <button id="changeUserBtn" class="change-user-btn">Change User</button>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-label">Your Clicks</div>
+                        <div class="stat-value" id="userCount">0</div>
+                    </div>
+                    <div class="stat-box global">
+                        <div class="stat-label">Global Total</div>
+                        <div class="stat-value" id="globalCount">0</div>
+                    </div>
+                </div>
+
+                <div class="counter">
+                    <div id="countBtn" class="circle">
+                        <span class="click-text">CLICK</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard Sidebar -->
+            <div class="leaderboard-section">
+                <h2>User Leaderboard</h2>
+                <p class="leaderboard-subtitle">Top Clickers</p>
+                <div id="leaderboard" class="leaderboard">
+                    <p class="loading">Loading leaderboard...</p>
+                </div>
+            </div>
         </div>
-    </form>
 
-    <table id="result-table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Input Date</th>
-                <th>Days Since</th>
-            </tr>
-        </thead>
-        <tbody id="result-table-body">
-        </tbody>
-    </table>
-    --> 
-
-   <div>
-       
-     <div id="enterName"></div>
-       
-<div class="roundNumber" id="ifRoundNumber"></div>
-   
-        <div class="counter">
-          <div id="countBtn" class="circle">
-            <span class="number center-button"></span>
-          </div>
+        <!-- Admin Login Modal -->
+        <div id="loginModal" class="modal" style="display: none;">
+            <div class="modal-overlay" id="loginOverlay"></div>
+            <div class="modal-content login-modal-content">
+                <div class="modal-header">
+                    <h2>Admin Login</h2>
+                    <button class="modal-close" id="closeLoginModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="adminEmail">Email</label>
+                            <input type="email" id="adminEmail" required autocomplete="email" placeholder="admin@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminPassword">Password</label>
+                            <input type="password" id="adminPassword" required autocomplete="current-password" placeholder="••••••••">
+                        </div>
+                        <div id="loginError" class="error-message" style="display: none;"></div>
+                        <button type="submit" class="btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
         </div>
-       
-   </div> 
-         <body>
-</main>
 
-<!--<footer>
-    <p>&copy; 2023</p>
-</footer>-->
+        <!-- Admin Panel Modal -->
+        <div id="adminPanel" class="modal" style="display: none;">
+            <div class="modal-overlay" id="adminOverlay"></div>
+            <div class="modal-content admin-panel-content">
+                <div class="modal-header">
+                    <h2>Admin Panel</h2>
+                    <div class="admin-header-actions">
+                        <button class="btn-secondary" id="logoutBtn">Logout</button>
+                        <button class="modal-close" id="closeAdminPanel">&times;</button>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <!-- Statistics Section -->
+                    <div class="admin-section">
+                        <h3>Statistics Overview</h3>
+                        <div class="admin-stats-grid">
+                            <div class="admin-stat-card">
+                                <div class="admin-stat-label">Total Users</div>
+                                <div class="admin-stat-value" id="adminTotalUsers">0</div>
+                                <div class="admin-stat-change" id="usersChange">-</div>
+                            </div>
+                            <div class="admin-stat-card">
+                                <div class="admin-stat-label">Total Clicks</div>
+                                <div class="admin-stat-value" id="adminTotalClicks">0</div>
+                                <div class="admin-stat-change" id="clicksChange">-</div>
+                            </div>
+                            <div class="admin-stat-card">
+                                <div class="admin-stat-label">Average Clicks</div>
+                                <div class="admin-stat-value" id="adminAvgClicks">0</div>
+                                <div class="admin-stat-change" id="avgChange">-</div>
+                            </div>
+                            <div class="admin-stat-card">
+                                <div class="admin-stat-label">Most Active User</div>
+                                <div class="admin-stat-value" id="adminTopUser">-</div>
+                                <div class="admin-stat-change" id="topUserClicks">-</div>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Analytics Dashboard Section -->
+                    <div class="admin-section">
+                        <h3>Analytics Dashboard</h3>
+                        <div class="analytics-container">
+                            <div class="chart-container">
+                                <h4>Click Distribution</h4>
+                                <canvas id="clickDistributionChart"></canvas>
+                            </div>
+                            <div class="chart-container">
+                                <h4>Top 10 Users</h4>
+                                <canvas id="topUsersChart"></canvas>
+                            </div>
+                            <div class="chart-container chart-full-width">
+                                <h4>Activity Timeline (Last 24 Hours)</h4>
+                                <canvas id="activityTimelineChart"></canvas>
+                            </div>
+                            <div class="chart-container chart-full-width">
+                                <h4>Growth Metrics</h4>
+                                <canvas id="growthChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Activity Logs Section -->
+                    <div class="admin-section">
+                        <h3>Activity Logs</h3>
+                        <div class="log-tabs">
+                            <button class="log-tab active" data-tab="suspicious">Suspicious Activity</button>
+                            <button class="log-tab" data-tab="login">Login Attempts</button>
+                            <button class="log-tab" data-tab="all">All Activity</button>
+                        </div>
+                        <div class="log-filters">
+                            <button class="btn-small" id="refreshLogsBtn">Refresh</button>
+                            <button class="btn-small" id="clearLogsBtn">Clear Logs</button>
+                        </div>
+                        <div id="activityLogsContainer" class="activity-logs">
+                            <p class="loading">Loading activity logs...</p>
+                        </div>
+                    </div>
 
+                    <!-- User Management Section -->
+                    <div class="admin-section">
+                        <h3>User Management</h3>
+                        <div class="admin-actions">
+                            <button class="btn-danger" id="resetAllBtn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 12a9 9 0 0118 0 9 9 0 01-18 0z"></path>
+                                </svg>
+                                Reset All Counts
+                            </button>
+                        </div>
+                        <div id="userListContainer" class="user-list">
+                            <!-- User list will be dynamically populated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
+    <script type="module">
+        // Import Firebase SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
+        import { getDatabase, ref, set, child, get, increment, update, remove }
+            from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+            from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
 
-<script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBIy7mb_wS05I_0ICLMSX1P5avFim7yXsA",
+            authDomain: "chat-gtp-b0e1d.firebaseapp.com",
+            databaseURL: "https://chat-gtp-b0e1d-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "chat-gtp-b0e1d",
+            storageBucket: "chat-gtp-b0e1d.appspot.com",
+            messagingSenderId: "617084173940",
+            appId: "1:617084173940:web:e66612d6dae0337d4e9b21",
+            measurementId: "G-TFJ234R5B9"
+        };
 
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-        apiKey: "AIzaSyBIy7mb_wS05I_0ICLMSX1P5avFim7yXsA",
-        authDomain: "chat-gtp-b0e1d.firebaseapp.com",
-        databaseURL: "https://chat-gtp-b0e1d-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "chat-gtp-b0e1d",
-        storageBucket: "chat-gtp-b0e1d.appspot.com",
-        messagingSenderId: "617084173940",
-        appId: "1:617084173940:web:e66612d6dae0337d4e9b21",
-        measurementId: "G-TFJ234R5B9"
-    };
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase();
+        const auth = getAuth(app);
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
+        // Current user
+        let currentUser = null;
+        let isAdmin = false;
 
-    import { getDatabase, ref, set, child, update, remove, get, onValue }
-        from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js"
+        // Spam detection variables
+        let clickHistory = [];
+        const SPAM_THRESHOLD = 10; // clicks per second
+        const SPAM_WINDOW = 1000; // 1 second
 
-    const db = getDatabase();
+        // Initialize app
+        init();
 
+        function init() {
+            // Check if user exists in localStorage
+            currentUser = localStorage.getItem('counterAppUser');
 
-
-var testVar = 'test124';
-getNumber();
-/*
-    var namebox = document.getElementById("name")
-    var numberbox = document.getElementById("number")
-    var datebox = document.getElementById('inputDate').value;
-        console.log('datebox'+ datebox)
-   
-    //var datebox = document.getElementById("inputDate");
-    //const d = new Date();
-   // let text = d.toISOString();
-
-   
-
-    var insBtn = document.getElementById("addBtn")
-    var countBtn = document.getElementById("countBtn")
-
-    function InsertDate() {
-        
-        set(ref(db, "TheStudents/" + namebox.value), {
-            NameofStd: namebox.value,
-            NumberofStd: numberbox.value,
-            Date: text,
-        })
-            .then(() => {
-                console.log("Data saved successfully!")
-            })
-            .catch((error) => {
-                console.log("Error!")
-            });
-    }
-
-    insBtn.addEventListener('click', InsertDate)
-*/
-    countBtn.addEventListener('click', updateNumber)
-
-
-    
-
-    function  getNumber() {
-        const dbRef1 = ref(getDatabase());
-        var currentNumber;
-        var newNumber;
-        get(child(dbRef1, `clicker/count`)).then((snapshot) => {
-            if (snapshot.exists()) {
-                const circleContainer = document.getElementById('countBtn');
-                var thisNumber = snapshot.val();
-                circleContainer.innerText = thisNumber;  
-    
-                  if(isRoundNumber(thisNumber, '10')){
-                      const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
-                        spillerDetNoeRolle.innerText = snapshot.val();
-
-                         var x = document.createElement("INPUT");
-                          x.setAttribute("type", "checkbox");
-                          document.body.appendChild(x);
-                      
-                                      }
-
-                   
-                
-            }});
-        }
-
-    function updateNumber() {
-        const dbRef1 = ref(getDatabase());
-        var currentNumber;
-        var newNumber;
-
-
-        get(child(dbRef1, `clicker/count`)).then((snapshot) => {
-            if (snapshot.exists()) {
-                console.log('Last number: ' + snapshot.val());
-                currentNumber = snapshot.val(); 
-                newNumber = ++currentNumber;
-                console.log('New number: ' + newNumber)
-                setNewValue(newNumber);
-
-                 if(isRoundNumber(newNumber,'10')){
-                      const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
-                        spillerDetNoeRolle.innerText = newNumber;
-                  if(isRoundNumber(newNumber,'100'))setRoundeNumberValueAndDate(newNumber);
-                 } else if(!isRoundNumber(newNumber,'10')){
-                      const spillerDetNoeRolle = document.getElementById('ifRoundNumber');
-                        spillerDetNoeRolle.innerText = " ";
-                 }
-        
-                const circleContainer = document.getElementById('countBtn');
-                circleContainer.innerText = newNumber;
-
-                
+            if (!currentUser) {
+                promptForUsername();
             } else {
-                console.log("No data available");
-                newNumber = addNumber;
-                setNewValue(newNumber);
+                document.getElementById('currentUser').textContent = currentUser;
+                loadUserData();
             }
-        }).catch((error) => {
-            console.error(error);
-        });
 
+            // Add event listeners
+            document.getElementById('countBtn').addEventListener('click', handleClick);
+            document.getElementById('changeUserBtn').addEventListener('click', changeUser);
 
-function setRoundeNumberValueAndDate(number){
-     const d = new Date();
-        var lastUpdated = d.toISOString();
-            
-        set(ref(db, "roundNumbers/" + newNumber), {
-            number: newNumber,
-            timeStamp: lastUpdated
-        })
-            .then(() => {
-                console.log("Data saved successfully!")
-            })
-            .catch((error) => {
-                console.log("Error!")
-            });
-}
+            // Admin event listeners
+            document.getElementById('adminBtn').addEventListener('click', showLoginModal);
+            document.getElementById('closeLoginModal').addEventListener('click', hideLoginModal);
+            document.getElementById('loginOverlay').addEventListener('click', hideLoginModal);
+            document.getElementById('loginForm').addEventListener('submit', handleAdminLogin);
+            document.getElementById('closeAdminPanel').addEventListener('click', hideAdminPanel);
+            document.getElementById('adminOverlay').addEventListener('click', hideAdminPanel);
+            document.getElementById('logoutBtn').addEventListener('click', handleAdminLogout);
+            document.getElementById('resetAllBtn').addEventListener('click', resetAllUsers);
 
-        
-        function setNewValue(){
-        const d = new Date();
-        var lastUpdated = d.toISOString();
-            
-        set(ref(db, "clicker/"), {
-            count: newNumber,
-            lastUpdated: lastUpdated
-        })
-            .then(() => {
-                console.log("Data saved successfully!")
-            })
-            .catch((error) => {
-                console.log("Error!")
+            // Note: Log tab event listeners are added dynamically when admin panel opens
+
+            // Load global count and leaderboard
+            loadGlobalCount();
+            loadLeaderboard();
+
+            // Auth state listener
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    isAdmin = true;
+                } else {
+                    isAdmin = false;
+                    hideAdminPanel();
+                }
             });
         }
-    }
-     
 
-function isRoundNumber(number, amount) {
-         return number % amount === 0;
-}
+        /**
+         * Prompts user to enter their username
+         */
+        function promptForUsername() {
+            const userName = prompt("Welcome! Enter your name to start clicking:", "");
 
+            if (userName && userName.trim() !== "") {
+                currentUser = userName.trim();
+                localStorage.setItem('counterAppUser', currentUser);
+                document.getElementById('currentUser').textContent = currentUser;
+                loadUserData();
+            } else {
+                currentUser = "Guest_" + Math.floor(Math.random() * 10000);
+                localStorage.setItem('counterAppUser', currentUser);
+                document.getElementById('currentUser').textContent = currentUser;
+                loadUserData();
+            }
+        }
 
+        /**
+         * Allows user to change their username
+         */
+        function changeUser() {
+            localStorage.removeItem('counterAppUser');
+            promptForUsername();
+        }
 
-   /* var fragment = document.createDocumentFragment();
-    var table = document.createElement("table");
+        /**
+         * Loads the current user's click count
+         */
+        function loadUserData() {
+            const dbRef = ref(getDatabase());
 
+            get(child(dbRef, `users/${currentUser}/clicks`)).then((snapshot) => {
+                const userCount = snapshot.exists() ? snapshot.val() : 0;
+                document.getElementById('userCount').textContent = userCount;
+            }).catch((error) => {
+                console.error('Error loading user data:', error);
+                document.getElementById('userCount').textContent = '0';
+            });
+        }
 
-    ///Table header
-    var row = document.createElement("tr")
+        /**
+         * Loads the global total click count
+         */
+        function loadGlobalCount() {
+            const dbRef = ref(getDatabase());
 
-    var cell1 = document.createElement("th");
-    var cell2 = document.createElement("th");
-    var cell3 = document.createElement("th");
-    row.appendChild(cell1);
-    row.appendChild(cell2);
-    row.appendChild(cell3);
-    cell1.innerHTML = 'Name';
-    cell2.innerHTML = 'Wish';
-    cell3.innerHTML = 'Date';
+            get(child(dbRef, 'globalStats/totalClicks')).then((snapshot) => {
+                const globalCount = snapshot.exists() ? snapshot.val() : 0;
+                document.getElementById('globalCount').textContent = globalCount;
+            }).catch((error) => {
+                console.error('Error loading global count:', error);
+            });
+        }
 
-    table.appendChild(row);
-    //Table header END
+        /**
+         * Handles click on the counter button
+         */
+        async function handleClick() {
+            try {
+                // Spam detection
+                const now = Date.now();
+                clickHistory.push(now);
 
+                // Remove clicks outside the spam window
+                clickHistory = clickHistory.filter(time => now - time < SPAM_WINDOW);
 
+                // Check for spam
+                const isSpam = clickHistory.length > SPAM_THRESHOLD;
 
+                if (isSpam) {
+                    // Log suspicious activity
+                    await logActivity('spam', {
+                        user: currentUser,
+                        clicksPerSecond: clickHistory.length,
+                        message: `Rapid clicking detected: ${clickHistory.length} clicks in 1 second`
+                    });
+                }
 
-    const dbRef = ref(db, 'TheStudents/');
+                // Update user's click count
+                const userRef = ref(db, `users/${currentUser}`);
+                const userSnapshot = await get(userRef);
 
-    onValue(dbRef, (snapshot) => {
-        snapshot.forEach((childSnapshot) => {
+                let newUserCount = 1;
+                if (userSnapshot.exists()) {
+                    newUserCount = (userSnapshot.val().clicks || 0) + 1;
+                }
 
-            const childKey = childSnapshot.key;
-            const childData = JSON.stringify(childSnapshot.val());
+                const updates = {};
+                updates[`users/${currentUser}/clicks`] = newUserCount;
+                updates[`users/${currentUser}/lastClick`] = new Date().toISOString();
+                updates[`users/${currentUser}/userName`] = currentUser;
 
-            //Table body 
-            var tr = document.createElement("tr");
-            // var trValues = [childKey, childData];
-            var td1 = document.createElement("td");
-            td1.textContent = childSnapshot.val().NameofStd;
-            tr.appendChild(td1);
+                // Update global count
+                const globalRef = ref(db, 'globalStats/totalClicks');
+                const globalSnapshot = await get(globalRef);
+                const newGlobalCount = (globalSnapshot.exists() ? globalSnapshot.val() : 0) + 1;
+                updates['globalStats/totalClicks'] = newGlobalCount;
+                updates['globalStats/lastUpdated'] = new Date().toISOString();
 
-            var td2 = document.createElement("td");
-            td2.textContent = childSnapshot.val().NumberofStd;
-            tr.appendChild(td2);
+                // Save to Firebase
+                await update(ref(db), updates);
 
+                // Update UI
+                document.getElementById('userCount').textContent = newUserCount;
+                document.getElementById('globalCount').textContent = newGlobalCount;
 
-            table.appendChild(tr);
-            //Table body END 
+                // Refresh leaderboard
+                loadLeaderboard();
 
-        });
-    }, {
-        onlyOnce: true
-    });
+                // Log normal activity periodically (every 10th click)
+                if (newUserCount % 10 === 0) {
+                    await logActivity('click', {
+                        user: currentUser,
+                        totalClicks: newUserCount,
+                        message: `Reached ${newUserCount} clicks`
+                    });
+                }
 
-    fragment.appendChild(table);
-    document.body.appendChild(fragment);
-*/
+                console.log(`User: ${currentUser}, Clicks: ${newUserCount}, Global: ${newGlobalCount}`);
+            } catch (error) {
+                console.error('Error handling click:', error);
+            }
+        }
 
-</script>
+        /**
+         * Loads and displays the leaderboard
+         */
+        function loadLeaderboard() {
+            const dbRef = ref(getDatabase());
+            const leaderboardDiv = document.getElementById('leaderboard');
 
-<div id="myDynamicTable"></div>
+            get(child(dbRef, 'users')).then((snapshot) => {
+                if (snapshot.exists()) {
+                    const users = [];
 
+                    snapshot.forEach((childSnapshot) => {
+                        const data = childSnapshot.val();
+                        if (data.clicks) {
+                            users.push({
+                                userName: data.userName || childSnapshot.key,
+                                clicks: data.clicks,
+                                lastClick: data.lastClick
+                            });
+                        }
+                    });
 
-<script src="script.js"></script>
+                    // Sort by clicks (descending)
+                    users.sort((a, b) => b.clicks - a.clicks);
+
+                    // Display leaderboard
+                    displayLeaderboard(users);
+                } else {
+                    leaderboardDiv.innerHTML = '<p class="no-data">No clicks yet. Be the first!</p>';
+                }
+            }).catch((error) => {
+                console.error('Error loading leaderboard:', error);
+                leaderboardDiv.innerHTML = '<p class="error">Error loading leaderboard</p>';
+            });
+        }
+
+        /**
+         * Displays the leaderboard entries
+         * @param {Array} users - Array of user objects
+         */
+        function displayLeaderboard(users) {
+            const leaderboardDiv = document.getElementById('leaderboard');
+
+            if (users.length === 0) {
+                leaderboardDiv.innerHTML = '<p class="no-data">No clicks yet. Be the first!</p>';
+                return;
+            }
+
+            let html = '<table class="leaderboard-table"><thead><tr><th>Rank</th><th>User</th><th>Clicks</th><th>Last Click</th></tr></thead><tbody>';
+
+            users.forEach((user, index) => {
+                const date = new Date(user.lastClick);
+                const formattedDate = date.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+
+                const rankClass = index === 0 ? 'rank-1' : index === 1 ? 'rank-2' : index === 2 ? 'rank-3' : '';
+                const isCurrentUser = user.userName === currentUser ? 'current-user' : '';
+
+                html += `
+                    <tr class="${rankClass} ${isCurrentUser}">
+                        <td class="rank">${index + 1}</td>
+                        <td class="name">${user.userName}${user.userName === currentUser ? ' (You)' : ''}</td>
+                        <td class="clicks">${user.clicks}</td>
+                        <td class="date">${formattedDate}</td>
+                    </tr>
+                `;
+            });
+
+            html += '</tbody></table>';
+            leaderboardDiv.innerHTML = html;
+        }
+
+        /**
+         * Logs activity to Firebase
+         */
+        async function logActivity(type, data) {
+            try {
+                const timestamp = Date.now();
+                const logEntry = {
+                    type: type,
+                    timestamp: timestamp,
+                    date: new Date().toISOString(),
+                    ...data
+                };
+
+                // Store in Firebase under activityLogs
+                const logRef = ref(db, `activityLogs/${timestamp}`);
+                await set(logRef, logEntry);
+            } catch (error) {
+                console.error('Error logging activity:', error);
+            }
+        }
+
+        /**
+         * Shows the login modal
+         */
+        function showLoginModal() {
+            const modal = document.getElementById('loginModal');
+            modal.style.display = 'flex';
+            document.getElementById('adminEmail').focus();
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('loginForm').reset();
+        }
+
+        /**
+         * Hides the login modal
+         */
+        function hideLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('loginForm').reset();
+            document.getElementById('loginError').style.display = 'none';
+        }
+
+        /**
+         * Handles admin login form submission
+         */
+        async function handleAdminLogin(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('adminEmail').value;
+            const password = document.getElementById('adminPassword').value;
+            const errorDiv = document.getElementById('loginError');
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+
+                // Log successful login
+                await logActivity('login-success', {
+                    email: email,
+                    message: 'Admin login successful'
+                });
+
+                hideLoginModal();
+                showAdminPanel();
+            } catch (error) {
+                console.error('Login error:', error);
+
+                // Log failed login attempt
+                await logActivity('login-failed', {
+                    email: email,
+                    error: error.code,
+                    message: `Failed login attempt: ${error.code}`
+                });
+
+                // Map Firebase error codes to user-friendly messages
+                const errorMessages = {
+                    'auth/wrong-password': 'Incorrect password',
+                    'auth/user-not-found': 'No admin account found',
+                    'auth/invalid-email': 'Invalid email address',
+                    'auth/too-many-requests': 'Too many attempts. Try again later',
+                    'auth/invalid-credential': 'Invalid email or password'
+                };
+
+                const message = errorMessages[error.code] || 'Login failed. Please try again.';
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+            }
+        }
+
+        /**
+         * Handles admin logout
+         */
+        async function handleAdminLogout() {
+            try {
+                await signOut(auth);
+                hideAdminPanel();
+            } catch (error) {
+                console.error('Logout error:', error);
+                alert('Error logging out. Please try again.');
+            }
+        }
+
+        /**
+         * Shows the admin panel
+         */
+        function showAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = 'flex';
+            loadAdminStatistics();
+            loadUserList();
+            loadActivityLogs('suspicious');
+            loadAnalyticsDashboard();
+
+            // Add event listeners for log tabs
+            document.querySelectorAll('.log-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.log-tab').forEach(t => t.classList.remove('active'));
+                    e.target.classList.add('active');
+                    loadActivityLogs(e.target.dataset.tab);
+                });
+            });
+
+            // Add event listeners for log actions
+            document.getElementById('refreshLogsBtn').addEventListener('click', () => {
+                const activeTab = document.querySelector('.log-tab.active').dataset.tab;
+                loadActivityLogs(activeTab);
+            });
+
+            document.getElementById('clearLogsBtn').addEventListener('click', clearActivityLogs);
+        }
+
+        /**
+         * Hides the admin panel
+         */
+        function hideAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            if (panel) {
+                panel.style.display = 'none';
+            }
+        }
+
+        /**
+         * Checks if the current user is an authorized admin
+         * @param {Object} user - Firebase auth user object
+         * @returns {boolean} - True if authorized admin
+         */
+        function isAuthorizedAdmin(user) {
+            const ADMIN_EMAIL = 'maghovk@gmail.com'; // REPLACE WITH YOUR ADMIN EMAIL
+            return user && user.email === ADMIN_EMAIL;
+        }
+
+        /**
+         * Loads and displays admin statistics
+         */
+        async function loadAdminStatistics() {
+            const dbRef = ref(getDatabase());
+
+            try {
+                const snapshot = await get(child(dbRef, 'users'));
+
+                if (snapshot.exists()) {
+                    const users = [];
+                    let totalClicks = 0;
+                    let topUser = { name: '-', clicks: 0 };
+
+                    snapshot.forEach((childSnapshot) => {
+                        const data = childSnapshot.val();
+                        if (data.clicks) {
+                            users.push({
+                                userName: data.userName || childSnapshot.key,
+                                clicks: data.clicks
+                            });
+                            totalClicks += data.clicks;
+
+                            if (data.clicks > topUser.clicks) {
+                                topUser = {
+                                    name: data.userName || childSnapshot.key,
+                                    clicks: data.clicks
+                                };
+                            }
+                        }
+                    });
+
+                    const totalUsers = users.length;
+                    const avgClicks = totalUsers > 0 ? Math.round(totalClicks / totalUsers) : 0;
+
+                    // Update DOM
+                    document.getElementById('adminTotalUsers').textContent = totalUsers;
+                    document.getElementById('adminTotalClicks').textContent = totalClicks;
+                    document.getElementById('adminAvgClicks').textContent = avgClicks;
+                    document.getElementById('adminTopUser').textContent = topUser.name;
+                } else {
+                    // No users yet
+                    document.getElementById('adminTotalUsers').textContent = '0';
+                    document.getElementById('adminTotalClicks').textContent = '0';
+                    document.getElementById('adminAvgClicks').textContent = '0';
+                    document.getElementById('adminTopUser').textContent = '-';
+                }
+            } catch (error) {
+                console.error('Error loading admin statistics:', error);
+            }
+        }
+
+        /**
+         * Loads and displays the user list with delete buttons
+         */
+        async function loadUserList() {
+            const dbRef = ref(getDatabase());
+            const container = document.getElementById('userListContainer');
+
+            try {
+                const snapshot = await get(child(dbRef, 'users'));
+
+                if (snapshot.exists()) {
+                    const users = [];
+
+                    snapshot.forEach((childSnapshot) => {
+                        const data = childSnapshot.val();
+                        if (data.clicks) {
+                            users.push({
+                                userName: data.userName || childSnapshot.key,
+                                clicks: data.clicks,
+                                lastClick: data.lastClick
+                            });
+                        }
+                    });
+
+                    // Sort by clicks descending
+                    users.sort((a, b) => b.clicks - a.clicks);
+
+                    // Build HTML
+                    let html = '';
+                    users.forEach(user => {
+                        const lastClickDate = new Date(user.lastClick).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+
+                        html += `
+                            <div class="user-item">
+                                <div class="user-item-info">
+                                    <div class="user-item-name">${user.userName}</div>
+                                    <div class="user-item-stats">${user.clicks} clicks • Last: ${lastClickDate}</div>
+                                </div>
+                                <div class="user-item-actions">
+                                    <button class="btn-small" onclick="removeUser('${user.userName}')">Delete</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    container.innerHTML = html;
+                } else {
+                    container.innerHTML = '<p style="text-align: center; color: #718096; padding: 20px;">No users yet</p>';
+                }
+            } catch (error) {
+                console.error('Error loading user list:', error);
+                container.innerHTML = '<p style="text-align: center; color: #e53e3e; padding: 20px;">Error loading users</p>';
+            }
+        }
+
+        /**
+         * Resets all user click counts to 0
+         */
+        async function resetAllUsers() {
+            const user = auth.currentUser;
+            if (!isAuthorizedAdmin(user)) {
+                alert('Unauthorized access');
+                return;
+            }
+
+            if (!confirm('Are you sure you want to reset all user counts? This cannot be undone.')) {
+                return;
+            }
+
+            try {
+                const dbRef = ref(getDatabase());
+                const snapshot = await get(child(dbRef, 'users'));
+
+                if (snapshot.exists()) {
+                    const updates = {};
+
+                    // Set all users' clicks to 0
+                    snapshot.forEach((childSnapshot) => {
+                        updates[`users/${childSnapshot.key}/clicks`] = 0;
+                    });
+
+                    // Reset global stats
+                    updates['globalStats/totalClicks'] = 0;
+                    updates['globalStats/lastUpdated'] = new Date().toISOString();
+
+                    // Apply updates
+                    await update(ref(db), updates);
+
+                    // Refresh UI
+                    loadAdminStatistics();
+                    loadUserList();
+                    loadGlobalCount();
+                    loadLeaderboard();
+
+                    alert('All user counts have been reset to 0');
+                } else {
+                    alert('No users to reset');
+                }
+            } catch (error) {
+                console.error('Error resetting users:', error);
+                alert('Error resetting users. Please try again.');
+            }
+        }
+
+        /**
+         * Removes a specific user from the database
+         * @param {string} userName - The username to remove
+         */
+        async function removeUser(userName) {
+            const user = auth.currentUser;
+            if (!isAuthorizedAdmin(user)) {
+                alert('Unauthorized access');
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to delete ${userName}? This cannot be undone.`)) {
+                return;
+            }
+
+            try {
+                const dbRef = ref(getDatabase());
+
+                // Get user's click count first
+                const userSnapshot = await get(child(dbRef, `users/${userName}`));
+
+                if (userSnapshot.exists()) {
+                    const userClicks = userSnapshot.val().clicks || 0;
+
+                    // Delete user
+                    await remove(ref(db, `users/${userName}`));
+
+                    // Update global stats
+                    const globalSnapshot = await get(child(dbRef, 'globalStats/totalClicks'));
+                    const currentGlobalTotal = globalSnapshot.exists() ? globalSnapshot.val() : 0;
+                    const newGlobalTotal = Math.max(0, currentGlobalTotal - userClicks);
+
+                    const updates = {};
+                    updates['globalStats/totalClicks'] = newGlobalTotal;
+                    updates['globalStats/lastUpdated'] = new Date().toISOString();
+
+                    await update(ref(db), updates);
+
+                    // Refresh UI
+                    loadAdminStatistics();
+                    loadUserList();
+                    loadGlobalCount();
+                    loadLeaderboard();
+
+                    alert(`User ${userName} has been deleted`);
+                } else {
+                    alert('User not found');
+                }
+            } catch (error) {
+                console.error('Error removing user:', error);
+                alert('Error removing user. Please try again.');
+            }
+        }
+
+        /**
+         * Loads and displays activity logs
+         */
+        async function loadActivityLogs(filter = 'all') {
+            const container = document.getElementById('activityLogsContainer');
+            container.innerHTML = '<p class="loading">Loading activity logs...</p>';
+
+            try {
+                const dbRef = ref(getDatabase());
+                const snapshot = await get(child(dbRef, 'activityLogs'));
+
+                if (snapshot.exists()) {
+                    const logs = [];
+
+                    snapshot.forEach((childSnapshot) => {
+                        const log = childSnapshot.val();
+                        logs.push(log);
+                    });
+
+                    // Sort by timestamp (newest first)
+                    logs.sort((a, b) => b.timestamp - a.timestamp);
+
+                    // Filter logs based on selected tab
+                    let filteredLogs = logs;
+                    if (filter === 'suspicious') {
+                        filteredLogs = logs.filter(log => log.type === 'spam' || log.type === 'suspicious');
+                    } else if (filter === 'login') {
+                        filteredLogs = logs.filter(log => log.type === 'login-success' || log.type === 'login-failed');
+                    }
+
+                    // Display logs
+                    if (filteredLogs.length === 0) {
+                        let message = 'No logs found';
+                        if (filter === 'suspicious') {
+                            message = 'No suspicious activity detected. Click the counter button rapidly to test spam detection.';
+                        } else if (filter === 'login') {
+                            message = 'No login attempts recorded yet.';
+                        }
+                        container.innerHTML = `<p style="text-align: center; color: #718096; padding: 20px;">${message}</p>`;
+                        return;
+                    }
+
+                    let html = '';
+                    filteredLogs.forEach(log => {
+                        const logClass = log.type;
+                        const date = new Date(log.date);
+                        const timeStr = date.toLocaleString();
+
+                        let typeLabel = '';
+                        let badge = '';
+
+                        switch(log.type) {
+                            case 'spam':
+                                typeLabel = '⚠️ Spam Detection';
+                                badge = '<span class="log-badge danger">SPAM</span>';
+                                break;
+                            case 'login-success':
+                                typeLabel = '✅ Login Success';
+                                badge = '<span class="log-badge info">SUCCESS</span>';
+                                break;
+                            case 'login-failed':
+                                typeLabel = '❌ Login Failed';
+                                badge = '<span class="log-badge warning">FAILED</span>';
+                                break;
+                            case 'click':
+                                typeLabel = '🖱️ Milestone';
+                                badge = '<span class="log-badge info">INFO</span>';
+                                break;
+                            default:
+                                typeLabel = '📝 Activity';
+                                badge = '<span class="log-badge info">INFO</span>';
+                        }
+
+                        html += `
+                            <div class="log-entry ${logClass}">
+                                <div class="log-entry-header">
+                                    <div class="log-entry-type">${typeLabel}${badge}</div>
+                                    <div class="log-entry-time">${timeStr}</div>
+                                </div>
+                                <div class="log-entry-details">
+                                    ${log.user ? `<span class="log-entry-user">${log.user}</span>: ` : ''}
+                                    ${log.email ? `<span class="log-entry-user">${log.email}</span>: ` : ''}
+                                    ${log.message}
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    container.innerHTML = html;
+                } else {
+                    // No logs exist at all
+                    let message = 'No activity logs yet. Logs are automatically created when:<br>' +
+                                '• Users click the counter button (every 10th click)<br>' +
+                                '• Spam is detected (rapid clicking)<br>' +
+                                '• Admin login attempts are made';
+                    container.innerHTML = `<div style="text-align: center; color: #718096; padding: 20px;">${message}</div>`;
+                }
+            } catch (error) {
+                console.error('Error loading activity logs:', error);
+                console.error('Error details:', error.message, error.stack);
+                container.innerHTML = `<p style="text-align: center; color: #e53e3e; padding: 20px;">Error loading logs: ${error.message}</p>`;
+            }
+        }
+
+        /**
+         * Clears all activity logs
+         */
+        async function clearActivityLogs() {
+            if (!confirm('Are you sure you want to clear all activity logs? This cannot be undone.')) {
+                return;
+            }
+
+            try {
+                const logsRef = ref(db, 'activityLogs');
+                await remove(logsRef);
+
+                alert('Activity logs cleared successfully');
+                loadActivityLogs('suspicious');
+            } catch (error) {
+                console.error('Error clearing logs:', error);
+                alert('Error clearing logs. Please try again.');
+            }
+        }
+
+        /**
+         * Loads analytics dashboard with charts
+         */
+        let chartInstances = {};
+
+        async function loadAnalyticsDashboard() {
+            try {
+                const dbRef = ref(getDatabase());
+                const usersSnapshot = await get(child(dbRef, 'users'));
+                const logsSnapshot = await get(child(dbRef, 'activityLogs'));
+
+                if (!usersSnapshot.exists()) {
+                    return;
+                }
+
+                const users = [];
+                usersSnapshot.forEach((childSnapshot) => {
+                    const data = childSnapshot.val();
+                    if (data.clicks) {
+                        users.push({
+                            userName: data.userName || childSnapshot.key,
+                            clicks: data.clicks,
+                            lastClick: data.lastClick
+                        });
+                    }
+                });
+
+                users.sort((a, b) => b.clicks - a.clicks);
+
+                // Load charts
+                loadClickDistributionChart(users);
+                loadTopUsersChart(users.slice(0, 10));
+                loadActivityTimelineChart(logsSnapshot);
+                loadGrowthChart(users, logsSnapshot);
+
+            } catch (error) {
+                console.error('Error loading analytics:', error);
+            }
+        }
+
+        /**
+         * Click Distribution Pie Chart
+         */
+        function loadClickDistributionChart(users) {
+            const ctx = document.getElementById('clickDistributionChart');
+
+            // Destroy existing chart if it exists
+            if (chartInstances.clickDistribution) {
+                chartInstances.clickDistribution.destroy();
+            }
+
+            const totalClicks = users.reduce((sum, u) => sum + u.clicks, 0);
+            const top5 = users.slice(0, 5);
+            const othersClicks = users.slice(5).reduce((sum, u) => sum + u.clicks, 0);
+
+            const labels = [...top5.map(u => u.userName), 'Others'];
+            const data = [...top5.map(u => u.clicks), othersClicks];
+
+            chartInstances.clickDistribution = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: [
+                            '#667eea',
+                            '#764ba2',
+                            '#f093fb',
+                            '#f5576c',
+                            '#4facfe',
+                            '#cbd5e0'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const percentage = ((context.parsed / totalClicks) * 100).toFixed(1);
+                                    return `${context.label}: ${context.parsed} clicks (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        /**
+         * Top Users Bar Chart
+         */
+        function loadTopUsersChart(topUsers) {
+            const ctx = document.getElementById('topUsersChart');
+
+            if (chartInstances.topUsers) {
+                chartInstances.topUsers.destroy();
+            }
+
+            chartInstances.topUsers = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: topUsers.map(u => u.userName),
+                    datasets: [{
+                        label: 'Clicks',
+                        data: topUsers.map(u => u.clicks),
+                        backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                        borderColor: '#667eea',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        /**
+         * Activity Timeline (Last 24 Hours)
+         */
+        function loadActivityTimelineChart(logsSnapshot) {
+            const ctx = document.getElementById('activityTimelineChart');
+
+            if (chartInstances.activityTimeline) {
+                chartInstances.activityTimeline.destroy();
+            }
+
+            // Process logs for last 24 hours
+            const now = Date.now();
+            const last24Hours = now - (24 * 60 * 60 * 1000);
+            const hourlyData = Array(24).fill(0);
+            const hourlySpam = Array(24).fill(0);
+
+            if (logsSnapshot.exists()) {
+                logsSnapshot.forEach((childSnapshot) => {
+                    const log = childSnapshot.val();
+                    if (log.timestamp > last24Hours) {
+                        const hoursAgo = Math.floor((now - log.timestamp) / (60 * 60 * 1000));
+                        const index = 23 - hoursAgo;
+
+                        if (index >= 0 && index < 24) {
+                            if (log.type === 'click') {
+                                hourlyData[index]++;
+                            } else if (log.type === 'spam') {
+                                hourlySpam[index]++;
+                            }
+                        }
+                    }
+                });
+            }
+
+            const labels = Array(24).fill(0).map((_, i) => {
+                const hour = new Date(now - ((23 - i) * 60 * 60 * 1000));
+                return hour.getHours() + ':00';
+            });
+
+            chartInstances.activityTimeline = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Click Activity',
+                            data: hourlyData,
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Spam Detected',
+                            data: hourlySpam,
+                            borderColor: '#fc8181',
+                            backgroundColor: 'rgba(252, 129, 129, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        /**
+         * Growth Metrics Chart
+         */
+        function loadGrowthChart(users, logsSnapshot) {
+            const ctx = document.getElementById('growthChart');
+
+            if (chartInstances.growth) {
+                chartInstances.growth.destroy();
+            }
+
+            // Simulate daily growth data from logs
+            const days = 7;
+            const dailyUsers = Array(days).fill(0);
+            const dailyClicks = Array(days).fill(0);
+
+            // In a real scenario, you'd track this in Firebase
+            // For now, we'll estimate based on current data
+            const now = Date.now();
+            if (logsSnapshot.exists()) {
+                logsSnapshot.forEach((childSnapshot) => {
+                    const log = childSnapshot.val();
+                    const daysAgo = Math.floor((now - log.timestamp) / (24 * 60 * 60 * 1000));
+                    if (daysAgo >= 0 && daysAgo < days) {
+                        const index = days - 1 - daysAgo;
+                        if (log.type === 'click') {
+                            dailyClicks[index]++;
+                        }
+                    }
+                });
+            }
+
+            const labels = Array(days).fill(0).map((_, i) => {
+                const date = new Date(now - ((days - 1 - i) * 24 * 60 * 60 * 1000));
+                return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            });
+
+            chartInstances.growth = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Daily Milestones',
+                            data: dailyClicks,
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.2)',
+                            fill: true,
+                            tension: 0.4,
+                            yAxisID: 'y'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Expose removeUser to global scope for inline onclick handlers
+        window.removeUser = removeUser;
+    </script>
+
+    <script src="script.js"></script>
 </body>
-
 </html>
