@@ -29,6 +29,18 @@
                     <button id="changeUserBtn" class="change-user-btn">Change User</button>
                 </div>
 
+                <!-- Game Mode Selector -->
+                <div class="game-mode-selector">
+                    <button class="mode-btn active" data-mode="normal">
+                        <span class="mode-icon">♾️</span>
+                        <span class="mode-label">Normal Mode</span>
+                    </button>
+                    <button class="mode-btn" data-mode="challenge">
+                        <span class="mode-icon">⚡</span>
+                        <span class="mode-label">15s Challenge</span>
+                    </button>
+                </div>
+
                 <div class="stats-container">
                     <div class="stat-box">
                         <div class="stat-label">Your Clicks</div>
@@ -40,19 +52,55 @@
                     </div>
                 </div>
 
+                <!-- Challenge Mode Stats -->
+                <div id="challengeStats" class="challenge-stats" style="display: none;">
+                    <div class="challenge-timer">
+                        <div class="timer-label">Time Remaining</div>
+                        <div class="timer-value" id="challengeTimer">15.0s</div>
+                    </div>
+                    <div class="challenge-score">
+                        <div class="score-label">Challenge Score</div>
+                        <div class="score-value" id="challengeScore">0</div>
+                    </div>
+                    <div class="challenge-best">
+                        <div class="best-label">Your Best</div>
+                        <div class="best-value" id="challengeBest">-</div>
+                    </div>
+                </div>
+
                 <div class="counter">
                     <div id="countBtn" class="circle">
-                        <span class="click-text">CLICK</span>
+                        <span class="click-text" id="clickText">CLICK</span>
                     </div>
+                    <button id="startChallengeBtn" class="start-challenge-btn" style="display: none;">
+                        Start Challenge
+                    </button>
                 </div>
             </div>
 
             <!-- Leaderboard Sidebar -->
             <div class="leaderboard-section">
-                <h2>User Leaderboard</h2>
-                <p class="leaderboard-subtitle">Top Clickers</p>
-                <div id="leaderboard" class="leaderboard">
-                    <p class="loading">Loading leaderboard...</p>
+                <div class="leaderboard-tabs">
+                    <button class="leaderboard-tab active" data-tab="normal">Normal Mode</button>
+                    <button class="leaderboard-tab" data-tab="challenge">15s Challenge</button>
+                </div>
+
+                <!-- Normal Leaderboard -->
+                <div id="normalLeaderboardContent" class="leaderboard-content">
+                    <h2>User Leaderboard</h2>
+                    <p class="leaderboard-subtitle">Top Clickers</p>
+                    <div id="leaderboard" class="leaderboard">
+                        <p class="loading">Loading leaderboard...</p>
+                    </div>
+                </div>
+
+                <!-- Challenge Leaderboard -->
+                <div id="challengeLeaderboardContent" class="leaderboard-content" style="display: none;">
+                    <h2>Challenge Leaderboard</h2>
+                    <p class="leaderboard-subtitle">Top 15s Scores</p>
+                    <div id="challengeLeaderboard" class="leaderboard">
+                        <p class="loading">Loading challenge leaderboard...</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -217,6 +265,14 @@
         const SPAM_THRESHOLD = 10; // clicks per second
         const SPAM_WINDOW = 1000; // 1 second
 
+        // Challenge mode variables
+        let currentMode = 'normal';
+        let challengeActive = false;
+        let challengeScore = 0;
+        let challengeTimer = null;
+        let challengeStartTime = null;
+        const CHALLENGE_DURATION = 15000; // 15 seconds
+
         // Initialize app
         init();
 
@@ -234,6 +290,25 @@
             // Add event listeners
             document.getElementById('countBtn').addEventListener('click', handleClick);
             document.getElementById('changeUserBtn').addEventListener('click', changeUser);
+
+            // Game mode event listeners
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    switchGameMode(e.target.closest('.mode-btn').dataset.mode);
+                });
+            });
+
+            document.getElementById('startChallengeBtn').addEventListener('click', startChallenge);
+
+            // Leaderboard tab listeners
+            document.querySelectorAll('.leaderboard-tab').forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    switchLeaderboardTab(e.target.dataset.tab);
+                });
+            });
+
+            // Load challenge best score
+            loadChallengeBest();
 
             // Admin event listeners
             document.getElementById('adminBtn').addEventListener('click', showLoginModal);
@@ -322,6 +397,16 @@
          * Handles click on the counter button
          */
         async function handleClick() {
+            // Challenge mode - just count clicks locally
+            if (currentMode === 'challenge' && challengeActive) {
+                challengeScore++;
+                document.getElementById('challengeScore').textContent = challengeScore;
+                return;
+            }
+
+            // Normal mode - save to database
+            if (currentMode !== 'normal') return;
+
             try {
                 // Spam detection
                 const now = Date.now();
@@ -482,6 +567,223 @@
                 await set(logRef, logEntry);
             } catch (error) {
                 console.error('Error logging activity:', error);
+            }
+        }
+
+        /**
+         * Switch between game modes
+         */
+        function switchGameMode(mode) {
+            currentMode = mode;
+
+            // Update mode buttons
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.mode === mode);
+            });
+
+            if (mode === 'normal') {
+                // Show normal mode UI
+                document.querySelector('.stats-container').style.display = 'flex';
+                document.getElementById('challengeStats').style.display = 'none';
+                document.getElementById('startChallengeBtn').style.display = 'none';
+                document.getElementById('countBtn').style.display = 'flex';
+                document.getElementById('clickText').textContent = 'CLICK';
+            } else if (mode === 'challenge') {
+                // Show challenge mode UI
+                document.querySelector('.stats-container').style.display = 'none';
+                document.getElementById('challengeStats').style.display = 'grid';
+                document.getElementById('startChallengeBtn').style.display = 'block';
+                document.getElementById('countBtn').style.display = 'none';
+                document.getElementById('challengeTimer').textContent = '15.0s';
+                document.getElementById('challengeScore').textContent = '0';
+            }
+        }
+
+        /**
+         * Switch between leaderboard tabs
+         */
+        function switchLeaderboardTab(tab) {
+            document.querySelectorAll('.leaderboard-tab').forEach(t => {
+                t.classList.toggle('active', t.dataset.tab === tab);
+            });
+
+            if (tab === 'normal') {
+                document.getElementById('normalLeaderboardContent').style.display = 'block';
+                document.getElementById('challengeLeaderboardContent').style.display = 'none';
+            } else {
+                document.getElementById('normalLeaderboardContent').style.display = 'none';
+                document.getElementById('challengeLeaderboardContent').style.display = 'block';
+                loadChallengeLeaderboard();
+            }
+        }
+
+        /**
+         * Start challenge mode
+         */
+        function startChallenge() {
+            challengeActive = true;
+            challengeScore = 0;
+            challengeStartTime = Date.now();
+
+            // Hide start button, show click button
+            document.getElementById('startChallengeBtn').style.display = 'none';
+            document.getElementById('countBtn').style.display = 'flex';
+            document.getElementById('clickText').textContent = 'GO!';
+            document.getElementById('challengeScore').textContent = '0';
+
+            // Start timer
+            updateChallengeTimer();
+            challengeTimer = setInterval(updateChallengeTimer, 50);
+
+            // End challenge after duration
+            setTimeout(endChallenge, CHALLENGE_DURATION);
+        }
+
+        /**
+         * Update challenge timer display
+         */
+        function updateChallengeTimer() {
+            const elapsed = Date.now() - challengeStartTime;
+            const remaining = Math.max(0, (CHALLENGE_DURATION - elapsed) / 1000);
+            document.getElementById('challengeTimer').textContent = remaining.toFixed(1) + 's';
+
+            // Change color as time runs out
+            const timerEl = document.getElementById('challengeTimer');
+            if (remaining < 5) {
+                timerEl.style.color = '#f56565';
+            } else if (remaining < 10) {
+                timerEl.style.color = '#ed8936';
+            } else {
+                timerEl.style.color = '#667eea';
+            }
+        }
+
+        /**
+         * End challenge mode
+         */
+        async function endChallenge() {
+            challengeActive = false;
+            clearInterval(challengeTimer);
+
+            document.getElementById('challengeTimer').textContent = '0.0s';
+            document.getElementById('countBtn').style.display = 'none';
+            document.getElementById('startChallengeBtn').style.display = 'block';
+            document.getElementById('clickText').textContent = 'CLICK';
+
+            // Save score to Firebase
+            try {
+                const scoreRef = ref(db, `challengeScores/${currentUser}`);
+                const snapshot = await get(scoreRef);
+                const currentBest = snapshot.exists() ? snapshot.val().score : 0;
+
+                if (challengeScore > currentBest) {
+                    await set(scoreRef, {
+                        userName: currentUser,
+                        score: challengeScore,
+                        date: new Date().toISOString()
+                    });
+
+                    alert(`🎉 New Personal Best! You scored ${challengeScore} clicks in 15 seconds!`);
+                    document.getElementById('challengeBest').textContent = challengeScore;
+                    loadChallengeLeaderboard();
+                } else {
+                    alert(`Challenge Complete! You scored ${challengeScore} clicks. Your best: ${currentBest}`);
+                }
+            } catch (error) {
+                console.error('Error saving challenge score:', error);
+                alert(`Challenge Complete! You scored ${challengeScore} clicks!`);
+            }
+        }
+
+        /**
+         * Load user's best challenge score
+         */
+        async function loadChallengeBest() {
+            try {
+                const scoreRef = ref(db, `challengeScores/${currentUser}`);
+                const snapshot = await get(scoreRef);
+
+                if (snapshot.exists()) {
+                    document.getElementById('challengeBest').textContent = snapshot.val().score;
+                } else {
+                    document.getElementById('challengeBest').textContent = '-';
+                }
+            } catch (error) {
+                console.error('Error loading challenge best:', error);
+            }
+        }
+
+        /**
+         * Load challenge leaderboard
+         */
+        async function loadChallengeLeaderboard() {
+            const leaderboardDiv = document.getElementById('challengeLeaderboard');
+            leaderboardDiv.innerHTML = '<p class="loading">Loading...</p>';
+
+            try {
+                const dbRef = ref(getDatabase());
+                const snapshot = await get(child(dbRef, 'challengeScores'));
+
+                if (snapshot.exists()) {
+                    const scores = [];
+
+                    snapshot.forEach((childSnapshot) => {
+                        const data = childSnapshot.val();
+                        scores.push({
+                            userName: data.userName || childSnapshot.key,
+                            score: data.score,
+                            date: data.date
+                        });
+                    });
+
+                    // Sort by score descending
+                    scores.sort((a, b) => b.score - a.score);
+
+                    // Build table
+                    let tableHTML = `
+                        <table class="leaderboard-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>User</th>
+                                    <th>Score</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+
+                    scores.forEach((entry, index) => {
+                        const rank = index + 1;
+                        const isCurrentUser = entry.userName === currentUser;
+                        const rowClass = isCurrentUser ? 'current-user' :
+                                        (rank === 1 ? 'rank-1' :
+                                        (rank === 2 ? 'rank-2' :
+                                        (rank === 3 ? 'rank-3' : '')));
+
+                        const date = new Date(entry.date).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric'
+                        });
+
+                        tableHTML += `
+                            <tr class="${rowClass}">
+                                <td class="rank">${rank}</td>
+                                <td class="user">${entry.userName}${isCurrentUser ? ' (You)' : ''}</td>
+                                <td class="clicks">${entry.score}</td>
+                                <td class="date">${date}</td>
+                            </tr>
+                        `;
+                    });
+
+                    tableHTML += '</tbody></table>';
+                    leaderboardDiv.innerHTML = tableHTML;
+                } else {
+                    leaderboardDiv.innerHTML = '<p style="text-align: center; color: #a0aec0; padding: 30px;">No challenge scores yet. Be the first!</p>';
+                }
+            } catch (error) {
+                console.error('Error loading challenge leaderboard:', error);
+                leaderboardDiv.innerHTML = '<p class="error">Error loading leaderboard</p>';
             }
         }
 

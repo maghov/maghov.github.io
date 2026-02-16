@@ -116,6 +116,154 @@ main h2 {
     transform: translateY(0);
 }
 
+/* Game Mode Selector */
+.game-mode-selector {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.mode-btn {
+    background: rgba(255, 255, 255, 0.95);
+    border: 3px solid #e2e8f0;
+    border-radius: 15px;
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 140px;
+}
+
+.mode-btn:hover {
+    border-color: #667eea;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-color: #667eea;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.mode-icon {
+    font-size: 32px;
+}
+
+.mode-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2d3748;
+}
+
+.mode-btn.active .mode-label {
+    color: #ffffff;
+}
+
+/* Challenge Mode Stats */
+.challenge-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.challenge-timer,
+.challenge-score,
+.challenge-best {
+    text-align: center;
+}
+
+.timer-label,
+.score-label,
+.best-label {
+    font-size: 12px;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.timer-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: #f56565;
+}
+
+.score-value,
+.best-value {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.start-challenge-btn {
+    margin-top: 20px;
+    padding: 15px 40px;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(72, 187, 120, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.start-challenge-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(72, 187, 120, 0.5);
+}
+
+.start-challenge-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Leaderboard Tabs */
+.leaderboard-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.leaderboard-tab {
+    background: none;
+    border: none;
+    padding: 12px 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+}
+
+.leaderboard-tab:hover {
+    color: #ffffff;
+}
+
+.leaderboard-tab.active {
+    color: #ffffff;
+    border-bottom-color: #ffffff;
+}
+
 /* Stats Container */
 .stats-container {
     display: flex;
