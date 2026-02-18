@@ -659,6 +659,206 @@ main h2 {
 }
 
 /* ============================================
+   Today's Most Clicks Section
+   ============================================ */
+
+.todays-most-clicks {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 25px 30px;
+    margin: 30px auto;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.todays-most-clicks::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #48bb78 0%, #38a169 100%);
+}
+
+.todays-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.todays-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 0;
+}
+
+.todays-date {
+    font-size: 13px;
+    color: #718096;
+    font-weight: 500;
+}
+
+.podium-cards {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.podium-card {
+    flex: 1;
+    text-align: center;
+    padding: 15px 10px;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    transition: transform 0.2s ease;
+}
+
+.podium-card:hover {
+    transform: translateY(-3px);
+}
+
+.podium-card.gold {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 193, 7, 0.1) 100%);
+    border-color: #f6e05e;
+}
+
+.podium-card.silver {
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.15) 0%, rgba(160, 174, 192, 0.1) 100%);
+    border-color: #cbd5e0;
+}
+
+.podium-card.bronze {
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.15) 0%, rgba(237, 137, 54, 0.1) 100%);
+    border-color: #ed8936;
+}
+
+.podium-card.is-you {
+    box-shadow: 0 0 0 2px #667eea;
+}
+
+.podium-medal {
+    font-size: 28px;
+    margin-bottom: 6px;
+}
+
+.podium-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #2d3748;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.podium-clicks {
+    font-size: 28px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 4px 0;
+}
+
+.podium-label {
+    font-size: 11px;
+    color: #a0aec0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.todays-rest {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 12px;
+}
+
+.todays-rest-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.todays-rest-item:hover {
+    background: #f7fafc;
+}
+
+.todays-rest-item.is-you {
+    background: rgba(102, 126, 234, 0.08);
+}
+
+.todays-rest-rank {
+    font-size: 14px;
+    font-weight: 700;
+    color: #a0aec0;
+    width: 30px;
+}
+
+.todays-rest-name {
+    flex: 1;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+.todays-rest-clicks {
+    font-size: 16px;
+    font-weight: 800;
+    color: #48bb78;
+}
+
+.no-clicks-today {
+    text-align: center;
+    color: #a0aec0;
+    padding: 20px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.loading-today {
+    text-align: center;
+    color: #a0aec0;
+    padding: 20px;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .todays-most-clicks {
+        margin: 20px auto;
+        padding: 20px;
+    }
+
+    .podium-cards {
+        gap: 8px;
+    }
+
+    .podium-card {
+        padding: 12px 6px;
+    }
+
+    .podium-medal {
+        font-size: 22px;
+    }
+
+    .podium-name {
+        font-size: 12px;
+    }
+
+    .podium-clicks {
+        font-size: 22px;
+    }
+}
+
+/* ============================================
    Admin Authentication Styles
    ============================================ */
 

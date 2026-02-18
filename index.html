@@ -52,6 +52,17 @@
                     </div>
                 </div>
 
+                <!-- Today's Most Clicks -->
+                <div class="todays-most-clicks">
+                    <div class="todays-header">
+                        <h3>Today's Most Clicks</h3>
+                        <span class="todays-date" id="todaysDate"></span>
+                    </div>
+                    <div class="todays-podium" id="todaysPodium">
+                        <p class="loading-today">Loading today's stats...</p>
+                    </div>
+                </div>
+
                 <!-- Challenge Mode Stats -->
                 <div id="challengeStats" class="challenge-stats" style="display: none;">
                     <div class="challenge-timer">
@@ -273,6 +284,16 @@
         let challengeStartTime = null;
         const CHALLENGE_DURATION = 15000; // 15 seconds
 
+        /**
+         * Returns today's date as YYYY-MM-DD string
+         */
+        function getTodayKey() {
+            const now = new Date();
+            return now.getFullYear() + '-' +
+                String(now.getMonth() + 1).padStart(2, '0') + '-' +
+                String(now.getDate()).padStart(2, '0');
+        }
+
         // Initialize app
         init();
 
@@ -322,9 +343,10 @@
 
             // Note: Log tab event listeners are added dynamically when admin panel opens
 
-            // Load global count and leaderboard
+            // Load global count, leaderboard, and today's clicks
             loadGlobalCount();
             loadLeaderboard();
+            loadTodaysMostClicks();
 
             // Auth state listener
             onAuthStateChanged(auth, (user) => {
@@ -448,6 +470,15 @@
                 updates['globalStats/totalClicks'] = newGlobalCount;
                 updates['globalStats/lastUpdated'] = new Date().toISOString();
 
+                // Track daily clicks
+                const todayKey = getTodayKey();
+                const dailyRef = ref(db, `dailyClicks/${todayKey}/${currentUser}/clicks`);
+                const dailySnapshot = await get(dailyRef);
+                const newDailyCount = (dailySnapshot.exists() ? dailySnapshot.val() : 0) + 1;
+                updates[`dailyClicks/${todayKey}/${currentUser}/clicks`] = newDailyCount;
+                updates[`dailyClicks/${todayKey}/${currentUser}/userName`] = currentUser;
+                updates[`dailyClicks/${todayKey}/${currentUser}/lastClick`] = new Date().toISOString();
+
                 // Save to Firebase
                 await update(ref(db), updates);
 
@@ -455,8 +486,9 @@
                 document.getElementById('userCount').textContent = newUserCount;
                 document.getElementById('globalCount').textContent = newGlobalCount;
 
-                // Refresh leaderboard
+                // Refresh leaderboard and today's clicks
                 loadLeaderboard();
+                loadTodaysMostClicks();
 
                 // Log normal activity periodically (every 10th click)
                 if (newUserCount % 10 === 0) {
@@ -584,6 +616,7 @@
             if (mode === 'normal') {
                 // Show normal mode UI
                 document.querySelector('.stats-container').style.display = 'flex';
+                document.querySelector('.todays-most-clicks').style.display = 'block';
                 document.getElementById('challengeStats').style.display = 'none';
                 document.getElementById('startChallengeBtn').style.display = 'none';
                 document.getElementById('countBtn').style.display = 'flex';
@@ -591,6 +624,7 @@
             } else if (mode === 'challenge') {
                 // Show challenge mode UI
                 document.querySelector('.stats-container').style.display = 'none';
+                document.querySelector('.todays-most-clicks').style.display = 'none';
                 document.getElementById('challengeStats').style.display = 'grid';
                 document.getElementById('startChallengeBtn').style.display = 'block';
                 document.getElementById('countBtn').style.display = 'none';
@@ -784,6 +818,94 @@
             } catch (error) {
                 console.error('Error loading challenge leaderboard:', error);
                 leaderboardDiv.innerHTML = '<p class="error">Error loading leaderboard</p>';
+            }
+        }
+
+        /**
+         * Loads and displays today's most clicks
+         */
+        async function loadTodaysMostClicks() {
+            const podiumDiv = document.getElementById('todaysPodium');
+            const dateSpan = document.getElementById('todaysDate');
+            const todayKey = getTodayKey();
+
+            // Display today's date
+            const today = new Date();
+            dateSpan.textContent = today.toLocaleDateString('en-US', {
+                weekday: 'long',
+                month: 'short',
+                day: 'numeric'
+            });
+
+            try {
+                const dbRef = ref(getDatabase());
+                const snapshot = await get(child(dbRef, `dailyClicks/${todayKey}`));
+
+                if (snapshot.exists()) {
+                    const users = [];
+
+                    snapshot.forEach((childSnapshot) => {
+                        const data = childSnapshot.val();
+                        if (data.clicks) {
+                            users.push({
+                                userName: data.userName || childSnapshot.key,
+                                clicks: data.clicks,
+                                lastClick: data.lastClick
+                            });
+                        }
+                    });
+
+                    // Sort by clicks descending
+                    users.sort((a, b) => b.clicks - a.clicks);
+
+                    if (users.length === 0) {
+                        podiumDiv.innerHTML = '<p class="no-clicks-today">No clicks yet today. Be the first!</p>';
+                        return;
+                    }
+
+                    // Build podium display (top 3) and list for the rest
+                    let html = '<div class="podium-cards">';
+
+                    users.slice(0, 3).forEach((user, index) => {
+                        const medals = ['gold', 'silver', 'bronze'];
+                        const medalIcons = ['&#x1F947;', '&#x1F948;', '&#x1F949;'];
+                        const isYou = user.userName === currentUser;
+
+                        html += `
+                            <div class="podium-card ${medals[index]}${isYou ? ' is-you' : ''}">
+                                <div class="podium-medal">${medalIcons[index]}</div>
+                                <div class="podium-name">${user.userName}${isYou ? ' (You)' : ''}</div>
+                                <div class="podium-clicks">${user.clicks}</div>
+                                <div class="podium-label">clicks today</div>
+                            </div>
+                        `;
+                    });
+
+                    html += '</div>';
+
+                    // Show remaining users in a compact list
+                    if (users.length > 3) {
+                        html += '<div class="todays-rest">';
+                        users.slice(3, 10).forEach((user, index) => {
+                            const isYou = user.userName === currentUser;
+                            html += `
+                                <div class="todays-rest-item${isYou ? ' is-you' : ''}">
+                                    <span class="todays-rest-rank">${index + 4}.</span>
+                                    <span class="todays-rest-name">${user.userName}${isYou ? ' (You)' : ''}</span>
+                                    <span class="todays-rest-clicks">${user.clicks}</span>
+                                </div>
+                            `;
+                        });
+                        html += '</div>';
+                    }
+
+                    podiumDiv.innerHTML = html;
+                } else {
+                    podiumDiv.innerHTML = '<p class="no-clicks-today">No clicks yet today. Be the first!</p>';
+                }
+            } catch (error) {
+                console.error('Error loading today\'s clicks:', error);
+                podiumDiv.innerHTML = '<p class="error">Error loading today\'s clicks</p>';
             }
         }
 
